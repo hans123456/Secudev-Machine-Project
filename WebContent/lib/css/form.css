@@ -1,0 +1,44 @@
+fieldset {
+	display: inline-block;
+}
+
+table {
+	width: 100%;
+}
+
+table tr td:nth-child(1) {
+	width: 100px;
+	text-align: right;
+	vertical-align: top;
+	font-weight: bold;
+}
+
+table tr td:nth-child(2) {
+	text-align: left;
+	width: 250px;
+}
+
+small {
+	color: red;
+}
+
+textarea {
+	width: 248px !important;
+}
+
+#result {
+	margin-right: 10px;
+	color: red;
+	text-align: right;
+	vertical-align: bottom;
+}
+
+.width-fixed {
+	width: 250px;
+}
+
+.display-input {
+	margin-bottom: 3px;
+	word-wrap: break-word;
+	width: 254px;
+}
