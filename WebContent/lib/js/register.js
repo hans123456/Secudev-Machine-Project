@@ -33,15 +33,21 @@ function legalAge() {
     require : '?ngModel',
     link : function($scope, $element, $attrs, ngModel) {
       $scope.$watch($attrs.ngModel, function(value) {
-        if (value === undefined) {
-          ngModel.$setValidity("legalAge", true);
-          return;
-        }
-        var ageDifMs = Date.now() - new Date(value).getTime();
-        var ageDate = new Date(ageDifMs); // miliseconds from epoch
-        var age = ageDate.getUTCFullYear() - 1970;
-        var isValid = age >= 18;
-        ngModel.$setValidity("legalAge", isValid);
+        $($element).datepicker({
+          dateFormat : 'yy-mm-dd',
+          yearRange : "-100:+0",
+          changeMonth : true,
+          changeYear : true,
+          showOtherMonths : true,
+          onSelect : function(date) {
+            var ageDifMs = Date.now() - new Date(date).getTime();
+            var ageDate = new Date(ageDifMs); // miliseconds from epoch
+            var age = ageDate.getUTCFullYear() - 1970;
+            var isValid = age >= 18;
+            ngModel.$setValidity("legalAge", isValid);
+            ngModel.$setViewValue(date);
+          }
+        });
       });
     },
   }

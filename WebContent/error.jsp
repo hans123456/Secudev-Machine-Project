@@ -8,6 +8,6 @@
 <body>
 	<a href="/SecudevCase1">Back to Home</a>
 	<br />
-	<img src="/SecudevCase1/res/11224862_10154185918728135_6213573383190973758_n.jpg" />
+	<img src="/SecudevCase1/images/11224862_10154185918728135_6213573383190973758_n.jpg" />
 </body>
 </html>	

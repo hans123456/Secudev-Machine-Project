@@ -2,18 +2,14 @@ fieldset {
 	display: inline-block;
 }
 
-table {
-	width: 100%;
-}
-
-table tr td:nth-child(1) {
+form table tr td:nth-child(1) {
 	width: 100px;
 	text-align: right;
 	vertical-align: top;
 	font-weight: bold;
 }
 
-table tr td:nth-child(2) {
+form table tr td:nth-child(2) {
 	text-align: left;
 	width: 250px;
 }
@@ -41,4 +37,10 @@ textarea {
 	margin-bottom: 3px;
 	word-wrap: break-word;
 	width: 254px;
+}
+
+#ui-datepicker-div {
+	font-family: "Trebuchet MS", "Helvetica", "Arial", "Verdana",
+		"sans-serif";
+	font-size: 85%;
 }

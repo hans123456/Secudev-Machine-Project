@@ -7,10 +7,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="lib/css/form.css" />
+<link rel="stylesheet" href="lib/css/jquery-ui.css" />
 </head>
 <body>
 	<script src="lib/js/angular.min.js"></script>
 	<script src="lib/js/jquery-2.1.4.min.js"></script>
+	<script src="lib/js/jquery-ui.js"></script>
 	<script src="lib/js/register.js"></script>
 	<shiro:lacksRole name="admin">
 		<%@ include file="/error.jsp"%>

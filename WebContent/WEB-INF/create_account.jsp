@@ -46,8 +46,8 @@
 </tr>
 <tr>
 	<td style="vertical-align: middle">Birthdate :</td>
-	<td><input type="date" name="birthdate" id="birthdate"
-		ng-model="birthdate" legal-age required /></td>
+	<td><input type="text" name="birthdate" id="birthdate"
+		ng-model="birthdate" legal-age required readonly/></td>
 </tr>
 <tr>
 	<td></td>
