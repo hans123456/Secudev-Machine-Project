@@ -19,7 +19,8 @@
 	</shiro:lacksRole>
 	<shiro:hasRole name="admin">
 		<a href="./">Back to Home</a>
-		<form name="myform" ng-submit="myform.$valid && register();"
+		<form id="myform" name="myform"
+			ng-submit="myform.$valid && register();"
 			ng-controller="myformController" novalidate>
 			<fieldset style="display: inline-block;">
 				<legend>Admin User Registration</legend>
