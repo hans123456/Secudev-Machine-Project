@@ -1,8 +1,6 @@
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.json.JSONObject;
+import org.joda.time.LocalDate;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
+import org.joda.time.format.DateTimeFormat;
 
 import model.User;
 import model.UserDAO;
@@ -89,12 +90,11 @@ public class register extends HttpServlet {
 			bad = true;
 
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-			Calendar c1 = Calendar.getInstance();
-			c1.setTime(sdf.parse(birthdate));
-			c1.add(Calendar.DAY_OF_MONTH, -1);
-			Calendar c2 = Calendar.getInstance();
-			long age = (long) ((c2.getTimeInMillis() - c1.getTimeInMillis()) / 1000.0 / 60 / 60 / 24 / 365);
+			LocalDate bdate = LocalDate.parse(birthdate, DateTimeFormat.forPattern("yyyy-MM-dd"));
+			bdate = bdate.minusDays(1);
+			LocalDate today = new LocalDate();
+			Period p = new Period(bdate, today, PeriodType.yearMonthDay());
+			long age = p.getYears();
 			if (age < 19)
 				badDate = true;
 		} catch (Exception e1) {
@@ -123,7 +123,6 @@ public class register extends HttpServlet {
 			System.out.println("Hooray!");
 		} catch (Exception e) {
 			response.getWriter().print("fail");
-			e.printStackTrace();
 		}
 
 	}
