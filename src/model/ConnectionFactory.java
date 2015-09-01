@@ -12,16 +12,16 @@ public class ConnectionFactory {
 	private final static String connectionUrl = "jdbc:mysql://" + serverName + "/" + databaseName;
 	private final static String username = "root";
 	private final static String password = "";
-	private static boolean initialized = false;
 
-	private static void initialize() throws ClassNotFoundException {
-		if (initialized) return;
-		Class.forName(driverClass);
-		initialized = true;
+	static {
+		try {
+			Class.forName(driverClass);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static Connection getConnection() throws SQLException, ClassNotFoundException {
-		initialize();
 		Connection connection = DriverManager.getConnection(connectionUrl, username, password);
 		return connection;
 	}
