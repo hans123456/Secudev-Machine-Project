@@ -47,15 +47,14 @@
 <tr>
 	<td style="vertical-align: middle">Birthdate :</td>
 	<td><input type="text" name="birthdate" id="birthdate"
-		ng-model="birthdate" legal-age required readonly/></td>
+		ng-model="birthdate" legal-age="19" required readonly/></td>
 </tr>
 <tr>
 	<td></td>
 	<td><small ng-cloak
 		ng-show="(myform.birthdate.$dirty || myform.$submitted) && myform.birthdate.$error.required">Required.</small>
 		<small ng-cloak ng-show="myform.birthdate.$error.date">LOL.</small> <small
-		ng-cloak ng-show="myform.birthdate.$error.legalAge">Must be 18
-			or above.</small></td>
+		ng-cloak ng-show="myform.birthdate.$error.legalAge">Must be above 18 years old.</small></td>
 </tr>
 <tr>
 	<td>Username :</td>

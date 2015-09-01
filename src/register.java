@@ -95,7 +95,7 @@ public class register extends HttpServlet {
 			c1.add(Calendar.DAY_OF_MONTH, -1);
 			Calendar c2 = Calendar.getInstance();
 			long age = (long) ((c2.getTimeInMillis() - c1.getTimeInMillis()) / 1000.0 / 60 / 60 / 24 / 365);
-			if (age < 18)
+			if (age < 19)
 				badDate = true;
 		} catch (Exception e1) {
 			bad = true;

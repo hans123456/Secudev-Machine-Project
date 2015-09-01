@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 
 public class UserDAO {
 
-	private final static String createQuery = "INSERT INTO `users` (`id`, `role_id`, `firstname`, `lastname`, `gender_id`, `salutation_id`, `birthdate`, `username`, `password`, `about_me`) "
-			+ "VALUES (NULL, (SELECT `id` FROM `roles` WHERE `role` = ?), ?, ?, (SELECT `id` FROM `genders` WHERE `gender` = ?),"
+	private final static String createQuery = "INSERT INTO `users` (`id`, `role_id`, `firstname`, `lastname`, `salutation_id`, `birthdate`, `username`, `password`, `about_me`) "
+			+ "VALUES (NULL, (SELECT `id` FROM `roles` WHERE `role` = ?), ?, ?, "
 			+ "(SELECT `id` FROM `salutations` WHERE `salutation` = ?), ?, ?, ?, ?)";
-	private final static String[] createParams = { "role", "firstname", "lastname", "gender", "salutation", "birthdate",
+	private final static String[] createParams = { "role", "firstname", "lastname", "salutation", "birthdate",
 			"username", "password", "about_me" };
 
 	private final static String getQuery = "SELECT `firstname`, `lastname`, `gender`, `salutation`, DATE_FORMAT(`birthdate`, '%M %d, %Y') as `birthdate`, `username`, `about_me` "
