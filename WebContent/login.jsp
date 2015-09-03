@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -27,7 +28,8 @@
 					</tr>
 					<tr>
 						<td>Username :</td>
-						<td><input type="text" name="username" id="username" class="width-fixed" /></td>
+						<td><input type="text" name="username" id="username"
+							class="width-fixed" /></td>
 					</tr>
 					<tr>
 						<td></td>
@@ -35,7 +37,8 @@
 					</tr>
 					<tr>
 						<td>Password :</td>
-						<td><input type="password" name="password" id="password" class="width-fixed" /></td>
+						<td><input type="password" name="password" id="password"
+							class="width-fixed" /></td>
 					</tr>
 					<tr>
 						<td></td>
@@ -43,8 +46,9 @@
 					</tr>
 					<tr>
 						<td></td>
-						<td style="text-align: right"><input type="reset" value="Reset" style="margin-right: 5px" /><input
-							type="submit" value="Login" /></td>
+						<td style="text-align: right"><input type="reset"
+							value="Reset" style="margin-right: 5px" /><input type="submit"
+							value="Login" /></td>
 					</tr>
 				</table>
 			</fieldset>
