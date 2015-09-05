@@ -40,10 +40,13 @@ function legalAge() {
           changeYear : true,
           showOtherMonths : true,
           onSelect : function(date) {
-            var ageDifMs = Date.now() - new Date(date).getTime();
-            var ageDate = new Date(ageDifMs); // miliseconds from epoch
-            ageDate.setDate(ageDate.getDate()+1);
-            var age = ageDate.getUTCFullYear() - 1970;
+            // var ageDifMs = Date.now() - new Date(date).getTime();
+            // var ageDate = new Date(ageDifMs); // miliseconds from epoch
+            // ageDate.setDate(ageDate.getDate() + 1);
+            // ageDate.getUTCFullYear() - 1970;
+            var yBday = new Date(date).getUTCFullYear();
+            var yNow = new Date().getUTCFullYear();
+            var age = yNow - yBday;
             var isValid = age >= parseInt($attrs.legalAge);
             ngModel.$setValidity("legalAge", isValid);
             ngModel.$setViewValue(date);
