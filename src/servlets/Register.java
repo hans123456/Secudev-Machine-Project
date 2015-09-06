@@ -1,6 +1,7 @@
-package servlet;
+package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,20 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
-import model.User;
-import model.UserDAO;
+import models.User;
+import models.UserDAO;
+import models.exceptions.SecurityBreachException;
 
 /**
  * Servlet implementation class register
  */
 @WebServlet("/register")
-public class register extends HttpServlet {
+public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public register() {
+	public Register() {
 		super();
 	}
 
@@ -47,14 +49,12 @@ public class register extends HttpServlet {
 		String password = request.getParameter("password");
 		String about_me = request.getParameter("about_me");
 
-		if (!currentUser.hasRole("admin")) {
-			if (role != null) {
-				response.sendRedirect("error.jsp");
-				return;
-			} else role = "user";
-		}
-
 		try {
+
+			if (!currentUser.hasRole("admin")) {
+				if (role != null) throw new SecurityBreachException();
+				else role = "user";
+			}
 
 			User user = new User();
 
@@ -63,8 +63,7 @@ public class register extends HttpServlet {
 			user.setLastname(lastname);
 			user.setUsername(username);
 			user.setPassword(password);
-			user.setGender(gender);
-			user.setSalutation(salutation);
+			user.setSalutation(gender, salutation);
 			user.setBirthdateString(birthdate);
 			user.setAboutMe(about_me);
 
@@ -72,11 +71,13 @@ public class register extends HttpServlet {
 				UserDAO.create(user);
 				response.getWriter().print("success");
 				System.out.println("Hooray!");
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				response.getWriter().print("fail");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
 			}
 
-		} catch (Exception e) {
+		} catch (SecurityBreachException e) {
 			response.sendRedirect("error.jsp");
 		}
 
