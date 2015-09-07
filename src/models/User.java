@@ -31,25 +31,28 @@ public class User {
 	}
 
 	public void setUsername(String username) throws SecurityBreachException {
-		if (username.length() <= 0 || username.length() > 50 || !username.matches("^[a-zA-Z0-9_]*$"))
+		if (username == null || username.length() <= 0 || username.length() > 50
+				|| !username.matches("^[a-zA-Z0-9_]*$"))
 			throw new SecurityBreachException();
 		this.info.put("username", username);
 	}
 
 	public void setPassword(String password) throws SecurityBreachException {
-		if (password.length() <= 0 || password.length() > 50 || !password.matches("^\\S*$"))
+		if (password == null || password.length() <= 0 || password.length() > 50 || !password.matches("^\\S*$"))
 			throw new SecurityBreachException();
 		this.info.put("password", ShiroPasswordManager.encryptPassword(password));
 	}
 
 	public void setFirstname(String firstname) throws SecurityBreachException {
-		if (firstname.length() <= 0 || firstname.length() > 50 || !firstname.matches("^[a-zA-Z0-9 ]*$"))
+		if (firstname == null || firstname.length() <= 0 || firstname.length() > 50
+				|| !firstname.matches("^[a-zA-Z0-9 ]*$"))
 			throw new SecurityBreachException();
 		this.info.put("firstname", firstname);
 	}
 
 	public void setLastname(String lastname) throws SecurityBreachException {
-		if (lastname.length() <= 0 || lastname.length() > 50 || !lastname.matches("^[a-zA-Z0-9 ]*$"))
+		if (lastname == null || lastname.length() <= 0 || lastname.length() > 50
+				|| !lastname.matches("^[a-zA-Z0-9 ]*$"))
 			throw new SecurityBreachException();
 		this.info.put("lastname", lastname);
 	}
@@ -63,22 +66,25 @@ public class User {
 		}
 		long yNow = LocalDate.now().getYear();
 		long age = yNow - yBday;
-		if (age < 19) throw new SecurityBreachException();
+		if (age < 19)
+			throw new SecurityBreachException();
 		this.info.put("birthdate", birthdate);
 	}
 
 	public void setAboutMe(String aboutMe) throws SecurityBreachException {
-		if (aboutMe.length() > 1000) throw new SecurityBreachException();
+		if (aboutMe == null || aboutMe.length() > 1000)
+			throw new SecurityBreachException();
 		this.info.put("about_me", aboutMe);
 	}
 
 	public void setRole(String role) throws SecurityBreachException {
-		if (!role.equals("admin") && !role.equals("user")) throw new SecurityBreachException();
+		if (role == null || !role.equals("admin") && !role.equals("user"))
+			throw new SecurityBreachException();
 		this.info.put("role", role);
 	}
 
 	public void setSalutation(String gender, String salutation) throws SecurityBreachException {
-		if (!((gender.equals("Male") && salutationsMale.contains(salutation))
+		if (gender == null || salutation == null || !((gender.equals("Male") && salutationsMale.contains(salutation))
 				|| (gender.equals("Female") && salutationsFemale.contains(salutation))))
 			throw new SecurityBreachException();
 		this.info.put("salutation", salutation);
