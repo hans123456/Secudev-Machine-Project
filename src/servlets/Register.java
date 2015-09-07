@@ -79,6 +79,8 @@ public class Register extends HttpServlet {
 
 		} catch (SecurityBreachException e) {
 			response.sendRedirect("error.jsp");
+		} catch (Exception e){
+			response.sendRedirect("error.jsp");
 		}
 
 	}
