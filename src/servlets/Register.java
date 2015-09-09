@@ -37,19 +37,21 @@ public class Register extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Subject currentUser = SecurityUtils.getSubject();
-
-		String role = request.getParameter("role");
-		String firstname = request.getParameter("firstname");
-		String lastname = request.getParameter("lastname");
-		String gender = request.getParameter("gender");
-		String salutation = request.getParameter("salutation");
-		String birthdate = request.getParameter("birthdate");
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		String about_me = request.getParameter("about_me");
-
 		try {
+
+			Subject currentUser = SecurityUtils.getSubject();
+
+			if (currentUser.isAuthenticated()) throw new SecurityBreachException();
+
+			String role = request.getParameter("role");
+			String firstname = request.getParameter("firstname");
+			String lastname = request.getParameter("lastname");
+			String gender = request.getParameter("gender");
+			String salutation = request.getParameter("salutation");
+			String birthdate = request.getParameter("birthdate");
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			String about_me = request.getParameter("about_me");
 
 			if (!currentUser.hasRole("admin")) {
 				if (role != null) throw new SecurityBreachException();
@@ -70,7 +72,7 @@ public class Register extends HttpServlet {
 			try {
 				UserDAO.create(user);
 				response.getWriter().print("success");
-				System.out.println("Hooray!");
+				System.out.println("Hooray Registered!");
 			} catch (SQLException e) {
 				response.getWriter().print("fail");
 			} catch (ClassNotFoundException e) {
@@ -79,7 +81,7 @@ public class Register extends HttpServlet {
 
 		} catch (SecurityBreachException e) {
 			response.sendRedirect("error.jsp");
-		} catch (Exception e){
+		} catch (Exception e) {
 			response.sendRedirect("error.jsp");
 		}
 
