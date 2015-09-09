@@ -26,8 +26,4 @@ public class ShiroPasswordManager extends PasswordMatcher {
 		return passwordService.encryptPassword(pass);
 	}
 
-	public static void main(String[] args) {
-		System.out.println(new ShiroPasswordManager().encryptPassword("root"));
-	}
-
 }

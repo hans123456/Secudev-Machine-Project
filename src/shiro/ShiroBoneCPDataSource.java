@@ -2,9 +2,11 @@ package shiro;
 
 import com.jolbox.bonecp.BoneCPDataSource;
 
-import model.ConnectionFactory;
+import models.ConnectionFactory;
 
 public class ShiroBoneCPDataSource extends BoneCPDataSource {
+
+	private static final long serialVersionUID = 1L;
 
 	public ShiroBoneCPDataSource() {
 		this.setDriverClass(ConnectionFactory.getDriverClass());
