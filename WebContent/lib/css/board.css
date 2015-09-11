@@ -1,0 +1,116 @@
+.uncited {
+	border-radius: 5px;
+	background-color: #F2F6F8;
+	border: 1px solid #417394;
+	white-space: nowrap;
+	vertical-align: top;
+	display: table;
+}
+
+.qauth {
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 15px;
+}
+
+.qpost {
+	padding: 10px;
+}
+
+.post {
+	width: 96%;
+	margin: 0 auto;
+	margin-top: 20px;
+	border: 1px solid black;
+}
+
+.postdate {
+	position: relative;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: inline-block;
+	left: 0;
+}
+
+.postbody {
+	background-color: #fff;
+}
+
+.postuserinfo {
+	padding: 10px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	border-bottom: 1px solid black;
+}
+
+.postcontent {
+	padding: 10px;
+	overflow: auto;
+	max-height: 300px;
+}
+
+img {
+	width: auto
+}
+
+.posttext {
+	display: inline-block;
+}
+
+.postbody .postuserinfo a {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.postheader {
+	background-color: #E4E4E4;
+	padding: 5px;
+	padding-left: 10px;
+	border-bottom: 1px solid black;
+}
+
+.postheader a {
+	text-decoration: none;
+}
+
+.postid {
+	position: relative;
+	display: inline-block;
+	float: right;
+}
+
+.postfooter {
+	background-color: #E4E4E4;
+	padding: 5px;
+	padding-left: 10px;
+	border-top: 1px solid black;
+}
+
+.postuserjoineddate {
+	margin-top: 5px;
+}
+
+.postuseroptions {
+	text-align: right;
+	padding: 5px;
+	border-bottom: 1px solid black;
+}
+
+.postuseroptions a {
+	padding: 2px;
+}
+
+.pagination {
+	display: table;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 30px;
+	max-width: 96%;
+}
+
+.pagination_n {
+	display: inline-block;
+	margin-left: 3px;
+	margin-top: 5px;
+}

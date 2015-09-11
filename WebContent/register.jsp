@@ -13,7 +13,8 @@
 	<script src="lib/js/angular.min.js"></script>
 	<script src="lib/js/jquery-2.1.4.min.js"></script>
 	<script src="lib/js/jquery-ui.js"></script>
-	<script src="lib/js/register.js"></script>
+	<script src="lib/js/form.js"></script>
+	<script src="lib/js/registration.js"></script>
 	<shiro:user>
 		<%@ include file="/error.jsp"%>
 	</shiro:user>

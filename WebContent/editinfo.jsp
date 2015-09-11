@@ -1,3 +1,4 @@
+<%@page import="models.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
@@ -17,15 +18,18 @@
 	<script src="lib/js/angular.min.js"></script>
 	<script src="lib/js/jquery-2.1.4.min.js"></script>
 	<script src="lib/js/jquery-ui.js"></script>
-	<script src="lib/js/register.js"></script>
+	<script src="lib/js/form.js"></script>
 	<shiro:guest>
 		<%@ include file="/error.jsp"%>
 	</shiro:guest>
 	<shiro:user>
 		<%
-			UserDAO.getUserInfo(SecurityUtils.getSubject().getPrincipal().toString(), request);
+			UserDAO dao = new UserDAO();
+				User user = dao.getInfo(SecurityUtils.getSubject().getPrincipal().toString());
+				request.setAttribute("user", user);
 		%>
-		<a href="./">Back to Home</a>
+		<c:import url="WEB-INF/menu.jsp"></c:import>
+		<br />
 		<form name="myform" id="myform"
 			ng-submit="myform.$valid && editinfo();"
 			ng-controller="myformController" novalidate>
@@ -142,8 +146,8 @@
 			</fieldset>
 		</form>
 		<script>
-			// $('#birthdate').val(Date.parse('${birthdate}'));
-		</script>
+      // $('#birthdate').val(Date.parse('${birthdate}'));
+    </script>
 	</shiro:user>
 </body>
 </html>

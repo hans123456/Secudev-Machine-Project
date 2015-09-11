@@ -69,14 +69,12 @@ public class Register extends HttpServlet {
 			user.setBirthdateString(birthdate);
 			user.setAboutMe(about_me);
 
-			try {
-				UserDAO.create(user);
+			UserDAO dao = new UserDAO();
+			if (dao.create(user)) {
 				response.getWriter().print("success");
 				System.out.println("Hooray Registered!");
-			} catch (SQLException e) {
+			} else {
 				response.getWriter().print("fail");
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
 			}
 
 		} catch (SecurityBreachException e) {

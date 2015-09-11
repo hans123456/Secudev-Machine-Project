@@ -49,7 +49,7 @@ public class EditInfo extends HttpServlet {
 
 			Subject currentUser = SecurityUtils.getSubject();
 
-			if (currentUser.isAuthenticated()) throw new SecurityBreachException();
+			if (!currentUser.isAuthenticated()) throw new SecurityBreachException();
 
 			String role = request.getParameter("role");
 			String firstname = request.getParameter("firstname");
@@ -77,12 +77,15 @@ public class EditInfo extends HttpServlet {
 			user.setBirthdateString(birthdate);
 			user.setAboutMe(about_me);
 
-			try {
-				UserDAO.edit(user);
-				response.getWriter().print("success");
-				System.out.println("Hooray Edited!");
-			} catch (Exception e) {
-				e.printStackTrace();
+			UserDAO dao = new UserDAO();
+			if (dao.edit(user)) {
+				if (currentUser.hasRole("admin") && role.equals("user")) {
+					currentUser.logout();
+					response.getWriter().print("logout");
+				} else {
+					response.getWriter().print("success");
+				}
+				System.out.println("Hooray Edited Info!");
 			}
 
 		} catch (SecurityBreachException e) {
