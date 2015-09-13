@@ -170,7 +170,7 @@
     </code>
     <code name="img2" priority="1">
         <pattern ignoreCase="true">[img]<var name="addr" scope="escapeXml"/>[/img]</pattern>
-        <template>&lt;a class=&quot;example-image-link&quot; href=&quot;<var name="protocol"/>/<var name="addr"/>&quot; data-lightbox=&quot;<var name="protocol"/>/<var name="addr"/>&quot;&gt;&lt;img class=&quot;board-image&quot; src=&quot;http://<var name="addr"/>&quot;/&gt;&lt;a/&gt;</template>
+        <template>&lt;a class=&quot;colorbox&quot; href=&quot;http://<var name="addr"/>&quot; &gt;&lt;img class=&quot;board-image&quot; src=&quot;http://<var name="addr"/>&quot;/&gt;&lt;a/&gt;</template>
     </code>
     
     <!-- Emoticon -->
