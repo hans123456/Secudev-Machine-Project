@@ -1,64 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xmlns="http://kefirsf.org/kefirbb/schema"
-               xsi:schemaLocation="http://kefirsf.org/kefirbb/schema http://kefirsf.org/kefirbb/schema/kefirbb-1.0.xsd">
-    <!-- XML escape symbols -->
-    <scope name="escapeXml">
-        <code priority="100">
-            <pattern>&amp;</pattern>
-            <template>&amp;amp;</template>
-        </code>
-        <code priority="100">
-            <pattern>&apos;</pattern>
-            <template>&amp;apos;</template>
-        </code>
-        <code priority="100">
-            <pattern>&lt;</pattern>
-            <template>&amp;lt;</template>
-        </code>
-        <code priority="100">
-            <pattern>&gt;</pattern>
-            <template>&amp;gt;</template>
-        </code>
-        <code priority="100">
-            <pattern>&quot;</pattern>
-            <template>&amp;quot;</template>
-        </code>
-    </scope>
+	xmlns="http://kefirsf.org/kefirbb/schema"
+	xsi:schemaLocation="http://kefirsf.org/kefirbb/schema http://kefirsf.org/kefirbb/schema/kefirbb-1.0.xsd">
+	<!-- XML escape symbols -->
+	<scope name="escapeXml">
+		<code priority="100">
+			<pattern>&amp;</pattern>
+			<template>&amp;amp;</template>
+		</code>
+		<code priority="100">
+			<pattern>&apos;</pattern>
+			<template>&amp;apos;</template>
+		</code>
+		<code priority="100">
+			<pattern>&lt;</pattern>
+			<template>&amp;lt;</template>
+		</code>
+		<code priority="100">
+			<pattern>&gt;</pattern>
+			<template>&amp;gt;</template>
+		</code>
+		<code priority="100">
+			<pattern>&quot;</pattern>
+			<template>&amp;quot;</template>
+		</code>
+	</scope>
 
-    <!-- Scope for escaping bb spec chars -->
-    <scope name="escapeBb" parent="escapeXml">
-        <!--
-            Escape bb-code symbols
-            double slash to slash
-            slash + square bracket to square bracket
-         -->
-        <code name="slash" priority="10">
-            <pattern>\\</pattern>
-            <template>\</template>
-        </code>
-        <code name="left_square_bracket" priority="9">
-            <pattern>\[</pattern>
-            <template>[</template>
-        </code>
-        <code name="right_square_bracket" priority="9">
-            <pattern>\]</pattern>
-            <template>]</template>
-        </code>
-        <coderef name="comment"/>
-    </scope>
+	<!-- Scope for escaping bb spec chars -->
+	<scope name="escapeBb" parent="escapeXml">
+		<!-- Escape bb-code symbols double slash to slash slash + square bracket 
+			to square bracket -->
+		<code name="slash" priority="10">
+			<pattern>\\</pattern>
+			<template>\</template>
+		</code>
+		<code name="left_square_bracket" priority="9">
+			<pattern>\[</pattern>
+			<template>[</template>
+		</code>
+		<code name="right_square_bracket" priority="9">
+			<pattern>\]</pattern>
+			<template>]</template>
+		</code>
+		<coderef name="comment" />
+	</scope>
 
-    <!-- Comment -->
-    <code name="comment">
-        <pattern>[*<junk/>*]</pattern>
-        <template/>
-    </code>
+	<!-- Comment -->
+	<code name="comment">
+		<pattern>
+			[*
+			<junk />
+			*]
+		</pattern>
+		<template />
+	</code>
 
-    <!-- Escape basic HTML char sequences -->
-    <scope name="basic" parent="escapeBb">
-        <!-- line feed characters -->
-        <code name="br1" priority="3">
-            <pattern>&#x0A;&#x0D;</pattern>
+	<!-- Escape basic HTML char sequences -->
+	<scope name="basic" parent="escapeBb">
+		<!-- line feed characters -->
+		<code name="br1" priority="3">
+			<pattern>&#x0A;&#x0D;</pattern>
             <template>&lt;br/&gt;</template>
         </code>
         <code name="br2" priority="2">
@@ -113,6 +114,12 @@
         <coderef name="url4"/>
         <coderef name="url5"/>
         <coderef name="url6"/>
+        
+        <!-- emoticons -->
+        <coderef name="smile"/>
+        <coderef name="biggrin"/>
+        <coderef name="frown"/>
+        <coderef name="tongue"/>
 
         <!-- Table -->
         <coderef name="table"/>
@@ -151,11 +158,29 @@
     <!-- Insert image -->
     <code name="img1" priority="2">
         <pattern ignoreCase="true">[img]<var name="protocol" regex="((ht|f)tps?:|\.{1,2})?"/>/<var name="addr" scope="escapeXml"/>[/img]</pattern>
-        <template>&lt;img src=&quot;<var name="protocol"/>/<var name="addr"/>&quot;/&gt;</template>
+        <template>&lt;a class=&quot;colorbox&quot; href=&quot;<var name="protocol"/>/<var name="addr"/>&quot; &gt;&lt;img class=&quot;board-image&quot; src=&quot;<var name="protocol"/>/<var name="addr"/>&quot;/&gt;&lt;a/&gt;</template>
     </code>
     <code name="img2" priority="1">
         <pattern ignoreCase="true">[img]<var name="addr" scope="escapeXml"/>[/img]</pattern>
-        <template>&lt;img src=&quot;http://<var name="addr"/>&quot;/&gt;</template>
+        <template>&lt;a class=&quot;example-image-link&quot; href=&quot;<var name="protocol"/>/<var name="addr"/>&quot; data-lightbox=&quot;<var name="protocol"/>/<var name="addr"/>&quot;&gt;&lt;img class=&quot;board-image&quot; src=&quot;http://<var name="addr"/>&quot;/&gt;&lt;a/&gt;</template>
+    </code>
+    
+    <!-- Emoticon -->
+    <code name="smile" priority="2">
+        <pattern ignoreCase="true"><var regex="(=|:)\)" /></pattern>
+        <template>&lt;img src=&quot;/res/images/board/smile.png&quot;/&gt;</template>
+    </code>
+    <code name="biggrin" priority="2">
+        <pattern ignoreCase="true"><var regex="(=|:)D" /></pattern>
+        <template>&lt;img src=&quot;/res/images/board/biggrin.png&quot;/&gt;</template>
+    </code>
+    <code name="frown" priority="2">
+        <pattern ignoreCase="true"><var regex="(=|:)\(" /></pattern>
+        <template>&lt;img src=&quot;/res/images/board/frown.png&quot;/&gt;</template>
+    </code>
+    <code name="tongue" priority="2">
+        <pattern ignoreCase="true"><var regex="(=|:)(P|p)" /></pattern>
+        <template>&lt;img src=&quot;/res/images/board/tongue.png&quot;/&gt;</template>
     </code>
 
     <!-- Links. http, https, malto protocols -->
@@ -203,12 +228,12 @@
 
     <!-- Qote block -->
     <code name="quote">
-        <pattern ignoreCase="true">[quote]<var inherit="true"/>[/quote]</pattern>
-        <template>&lt;blockquote&gt;<var/>&lt;/blockquote&gt;</template>
+        <pattern ignoreCase="true">[quote]<var name="text" inherit="true"/>[/quote]</pattern>
+        <template>&lt;blockquote class=&quot;uncited&quot;&gt;&lt;div&gt;&lt;div class=&quot;qpost&quot;&gt;<var name="text"/>&lt;/div&gt;&lt;/div&gt;&lt;/blockquote&gt;</template>
     </code>
     <code name="quote1">
 	    <pattern ignoreCase="true">[quote=<var name="name" scope="escapeXml"/>]<var name="text" inherit="true"/>[/quote]</pattern>
-	    <template>&lt;blockquote class=&quot;uncited&quot;&gt;&lt;div&gt;&lt;div class=&quot;qauth&quot;&gt;&lt;img src=&quot;images/board/quote_icon.png&quot;&gt; Originally Posted by &lt;b&gt;<var name="name"/>&lt;/b&gt;&lt;/div&gt;&lt;div class=&quot;qpost&quot;&gt;<var name="text"/>&lt;/div&gt;&lt;/div&gt;&lt;/blockquote&gt;</template>
+	    <template>&lt;blockquote class=&quot;uncited&quot;&gt;&lt;div&gt;&lt;div class=&quot;qauth&quot;&gt;&lt;img src=&quot;/res/images/board/quote_icon.png&quot;&gt; Originally Posted by &lt;b&gt;<var name="name"/>&lt;/b&gt;&lt;/div&gt;&lt;div class=&quot;qpost&quot;&gt;<var name="text"/>&lt;/div&gt;&lt;/div&gt;&lt;/blockquote&gt;</template>
 	</code>
 
     <!-- Quote code block -->

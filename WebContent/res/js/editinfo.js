@@ -1,11 +1,11 @@
-var app = angular.module('register', []);
+var app = angular.module('editinfo', []);
+
 app.controller('myformController', [ '$scope', function($scope) {
   var resultElem = $('#result');
   var result = function(res) {
     if (res == "success") {
       resultElem.css("color", "green");
       resultElem.html("Successfully Edited.");
-      document.getElementById("myform").reset();
     } else if (res == "logout") {
       resultElem.css("color", "green");
       resultElem.html("Successfully Edited.");

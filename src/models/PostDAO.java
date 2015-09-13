@@ -5,12 +5,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.exceptions.SecurityBreachException;
-
 public class PostDAO extends DAO {
 
-	private final String createQuery = "INSERT INTO `posts` (`id`, `user_id`, `time_posted`, `post`) "
-			+ "VALUES (NULL, (SELECT `id` FROM `users` WHERE `username` = ?), NOW(), ?	";
+	private final String createQuery = "INSERT INTO `posts` (`id`, `user_id`, `datetime_created`, `post`) "
+			+ "VALUES (NULL, (SELECT `id` FROM `users` WHERE `username` = ?), NOW(), ?)";
 	private final String[] createParams = { "username", "post" };
 
 	private final String editQuery = "UPDATE `posts` SET `datetime_lastedited` = NOW(), `post` = ? WHERE `id` = ?";
@@ -19,7 +17,7 @@ public class PostDAO extends DAO {
 	private final String deleteQuery = "UPDATE `posts` SET `datetime_lastedited` = NOW(), `deleted` = true WHERE `id` = ?";
 
 	private final String getQuery = "SELECT `firstname`, `username`, `datetime_joined`, `datetime_created`, `post`, `datetime_lastedited`, `deleted` "
-			+ "FROM `users`, `posts` WHERE `users`.`id` = `posts`.`id` and `posts`.`id` = ?";
+			+ "FROM `users`, `posts` WHERE `users`.`id` = `posts`.`user_id` and `posts`.`id` = ?";
 	private final String[] getResult = { "firstname", "username", "datetime_joined", "datetime_created", "post",
 			"datetime_lastedited", "deleted" };
 
@@ -31,8 +29,11 @@ public class PostDAO extends DAO {
 	private final String[] getListResult = { "id", "firstname", "username", "datetime_joined", "datetime_created",
 			"post", "datetime_lastedited", "deleted" };
 
-	private final String checkQuery = "SELECT EXISTS(SELECT 1 FROM `posts` WHERE `id` = ? and `user_id` = "
+	private final String checkIfCreatorQuery = "SELECT EXISTS(SELECT 1 FROM `posts` WHERE `id` = ? and `user_id` = "
 			+ "(SELECT `id` FROM `users` WHERE `username` = ?)) as `result`";
+
+	private final String checkIfDeletedQuery = "SELECT EXISTS(SELECT 1 FROM `posts` WHERE `id` = ? and `deleted` = true)"
+			+ " as `result`";
 
 	private int noOfRecords;
 
@@ -67,7 +68,6 @@ public class PostDAO extends DAO {
 			ps = con.prepareStatement(editQuery);
 			for (int i = 0, j = 1, k = editParams.length; i < k; i++, j++)
 				ps.setString(j, post.getInfo(editParams[i]));
-			System.out.println(ps);
 			ps.executeUpdate();
 			result = true;
 		} catch (ClassNotFoundException e) {
@@ -118,7 +118,7 @@ public class PostDAO extends DAO {
 			if (rs.next()) {
 				post = new Post();
 				for (int i = 0, j = 1, k = getResult.length; i < k; i++, j++)
-					post.setInfo(getResult[i], rs.getObject(j).toString());
+					if (rs.getObject(j) != null) post.setInfo(getResult[i], rs.getObject(j).toString());
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -139,9 +139,32 @@ public class PostDAO extends DAO {
 		boolean result = false;
 		try {
 			con = getConnection();
-			ps = con.prepareStatement(checkQuery);
+			ps = con.prepareStatement(checkIfCreatorQuery);
 			ps.setInt(1, id);
 			ps.setString(2, username);
+			rs = ps.executeQuery();
+			if (rs.next()) if (rs.getInt(1) == 1) result = true;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null) ps.close();
+				if (con != null) con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	public boolean checkIfDeleted(int id) {
+		boolean result = false;
+		try {
+			con = getConnection();
+			ps = con.prepareStatement(checkIfDeletedQuery);
+			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			if (rs.next()) if (rs.getInt(1) == 1) result = true;
 		} catch (ClassNotFoundException e) {

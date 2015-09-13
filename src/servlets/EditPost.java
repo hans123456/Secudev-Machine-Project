@@ -54,9 +54,11 @@ public class EditPost extends HttpServlet {
 			if (!(dao.checkIfCreator(p.getId(), currentUser.getPrincipal().toString()) || currentUser.hasRole("admin")))
 				throw new SecurityBreachException();
 
-			if (dao.edit(p)) {
+			if (dao.checkIfDeleted(p.getId())) {
+				response.getWriter().print("deleted");
+			} else if (dao.edit(p)) {
 				response.getWriter().print("success");
-				System.out.println("Hooray Post Created!");
+				System.out.println("Hooray Post Edited!");
 			} else {
 				response.getWriter().print("fail");
 			}

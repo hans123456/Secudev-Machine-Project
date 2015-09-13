@@ -1,0 +1,55 @@
+#createpost {
+	text-align: left;
+	width: 96%;
+	margin: 0 auto;
+	margin-top: 20px;
+	border: 1px solid black;
+}
+
+fieldset {
+	width: 96%;
+	margin: 0 auto;
+}
+
+textarea, #PreviewText {
+	overflow: auto;
+	min-height: 100px;
+	display: block;
+	max-width: 98%;
+	min-width: 98%;
+	margin-top: 10px;
+	resize: vertical;
+	margin: 0 auto;
+}
+
+#PreviewText {
+	border: 1px solid #A9A9A9;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	padding: 3px;
+	margin-bottom: 20px;
+}
+
+#Post {
+	margin-top: 10px;
+}
+
+#PostSubmit {
+	display: inline-block;
+	margin-top: 10px;
+	width: 99%;
+	text-align: right;
+	margin-top: 10px;
+}
+
+#PostNotification {
+	margin-left: 10px;
+	margin-bottom: 5px;
+	text-align: left;
+	display: inline-block;
+	text-align: left;
+}
+
+#PostNotification {
+	color: red;
+}

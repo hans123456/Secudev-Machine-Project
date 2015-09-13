@@ -41,7 +41,7 @@ public class Register extends HttpServlet {
 
 			Subject currentUser = SecurityUtils.getSubject();
 
-			if (currentUser.isAuthenticated()) throw new SecurityBreachException();
+			if (!currentUser.hasRole("admin")) throw new SecurityBreachException();
 
 			String role = request.getParameter("role");
 			String firstname = request.getParameter("firstname");
@@ -78,6 +78,7 @@ public class Register extends HttpServlet {
 			}
 
 		} catch (SecurityBreachException e) {
+			e.printStackTrace();
 			response.sendRedirect("error.jsp");
 		} catch (Exception e) {
 			response.sendRedirect("error.jsp");

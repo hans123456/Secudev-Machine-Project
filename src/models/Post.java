@@ -31,6 +31,7 @@ public class Post {
 		} catch (Exception e) {
 			throw new SecurityBreachException();
 		}
+		this.info.put("id", id);
 	}
 
 	public int getId() {
@@ -38,7 +39,7 @@ public class Post {
 	}
 
 	public void setPost(String post) throws SecurityBreachException {
-		if (post == null || post.length() <= 0 || post.length() > 1000) throw new SecurityBreachException();
+		if (post == null || post.length() <= 0 || post.length() > 5000) throw new SecurityBreachException();
 		this.info.put("post", post);
 	}
 

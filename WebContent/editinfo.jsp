@@ -7,22 +7,23 @@
 <%@page import="org.apache.shiro.SecurityUtils"%>
 <%@page import="org.apache.shiro.subject.Subject"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html ng-app="register">
+<html ng-app="editinfo">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="lib/css/form.css" />
-<link rel="stylesheet" href="lib/css/jquery-ui.css" />
+<link rel="stylesheet" href="res/css/form.css" />
+<link rel="stylesheet" href="res/css/lib/jquery-ui.css" />
 </head>
 <body>
-	<script src="lib/js/angular.min.js"></script>
-	<script src="lib/js/jquery-2.1.4.min.js"></script>
-	<script src="lib/js/jquery-ui.js"></script>
-	<script src="lib/js/form.js"></script>
 	<shiro:guest>
-		<%@ include file="/error.jsp"%>
+		<c:import url="/error.jsp"></c:import>
 	</shiro:guest>
 	<shiro:user>
+		<script src="res/js/lib/angular.min.js"></script>
+		<script src="res/js/lib/jquery-2.1.4.min.js"></script>
+		<script src="res/js/lib/jquery-ui.js"></script>
+		<script src="res/js/form.js"></script>
+		<script src="res/js/editinfo.js"></script>
 		<%
 			UserDAO dao = new UserDAO();
 				User user = dao.getInfo(SecurityUtils.getSubject().getPrincipal().toString());
@@ -34,18 +35,32 @@
 			ng-submit="myform.$valid && editinfo();"
 			ng-controller="myformController" novalidate>
 			<fieldset>
-				<legend>User Registration</legend>
+				<legend>Edit User Info</legend>
 				<table>
 					<tr>
 						<td></td>
 						<td id="result"></td>
 					</tr>
+					<shiro:hasRole name="admin">
+						<tr>
+							<td>Access Level :</td>
+							<td><select name="role" id="role">
+									<option value="user">User</option>
+									<option value="admin">Admin</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+						</tr>
+					</shiro:hasRole>
 					<tr>
 						<td>First Name :</td>
 						<td><input type="text" name="firstname" id="firstname"
 							class="width-fixed" ng-model="firstname" ng-maxlength="50"
 							ng-pattern="/^[a-zA-Z0-9 ]*$/"
-							ng-init="firstname='<c:out value="${firstname}" />'" required /></td>
+							ng-init="firstname='<c:out value="${user.getInfo(\"firstname\")}" />'"
+							required /></td>
 					</tr>
 					<tr>
 						<td></td>
@@ -60,7 +75,8 @@
 						<td><input type="text" name="lastname" id="lastname"
 							class="width-fixed" ng-model="lastname" ng-maxlength="50"
 							ng-pattern="/^[a-zA-Z0-9 ]*$/"
-							ng-init="lastname='<c:out value="${lastname}" />'" required /></td>
+							ng-init="lastname='<c:out value="${user.getInfo(\"lastname\")}" />'"
+							required /></td>
 					</tr>
 					<tr>
 						<td></td>
@@ -72,8 +88,7 @@
 					</tr>
 					<tr>
 						<td>Gender :</td>
-						<td><select name="gender" id="gender"
-							ng-value="<c:out value="${gender}" />" required><option
+						<td><select name="gender" id="gender" required><option
 									value="Male">Male</option>
 								<option value="Female">Female</option></select></td>
 					</tr>
@@ -92,7 +107,9 @@
 					<tr>
 						<td style="vertical-align: middle">Birthdate :</td>
 						<td><input type="text" name="birthdate" id="birthdate"
-							ng-model="birthdate" legal-age="19" required readonly /></td>
+							ng-model="birthdate" legal-age="19"
+							ng-init="birthdate='<c:out value="${user.getInfo(\"birthdate\")}" />'"
+							required readonly /></td>
 					</tr>
 					<tr>
 						<td></td>
@@ -105,7 +122,7 @@
 					<tr>
 						<td>Username :</td>
 						<td><div class="display-input">
-								<c:out value="${username}" />
+								<c:out value="${user.getInfo(\"username\")}" />
 							</div></td>
 					</tr>
 					<tr>
@@ -129,7 +146,7 @@
 						<td><textarea name="about_me" id="about_me" rows="10"
 								style="resize: vertical" class="width-fixed" ng-model="about_me"
 								ng-maxlength="1000"
-								ng-init="about_me='<c:out value="${about_me}" />'"></textarea></td>
+								ng-init="about_me='<c:out value="${user.getInfo(\"about_me\")}" />'"></textarea></td>
 					</tr>
 					<tr>
 						<td></td>
@@ -138,16 +155,30 @@
 					</tr>
 					<tr>
 						<td></td>
-						<td style="text-align: right"><input type="reset"
-							value="Reset" style="margin-right: 5px" ng-click="reset()"><input
-							type="submit" value="Submit"></td>
+						<td style="text-align: right"><input type="submit"
+							value="Submit"></td>
 					</tr>
 				</table>
 			</fieldset>
 		</form>
-		<script>
-      // $('#birthdate').val(Date.parse('${birthdate}'));
-    </script>
 	</shiro:user>
 </body>
+<shiro:user>
+	<script>
+    $(document).ready(
+        function() {
+          $("#gender").val('<c:out value="${user.getInfo(\"gender\")}" />')
+              .change();
+          $("#salutation").val(
+              '<c:out value="${user.getInfo(\"salutation\")}" />');
+        });
+  </script>
+</shiro:user>
+<shiro:hasRole name="admin">
+	<script>
+    $(document).ready(function() {
+      $("#role").val('<c:out value="${user.getInfo(\"role\")}" />');
+    });
+  </script>
+</shiro:hasRole>
 </html>

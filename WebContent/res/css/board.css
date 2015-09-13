@@ -114,3 +114,16 @@ img {
 	margin-left: 3px;
 	margin-top: 5px;
 }
+
+.deleted {
+	background-color: #777;
+	color: white;
+	padding: 5px;
+	text-align: center;
+}
+
+.board-image {
+	max-height: 300px;
+	max-width: 300px;
+	height: auto;
+}

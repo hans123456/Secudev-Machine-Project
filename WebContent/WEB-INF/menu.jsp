@@ -22,8 +22,8 @@
 			<td><a
 				href="profile.jsp?id=<%=SecurityUtils.getSubject().getPrincipal().toString()%>">View
 					Profile</a></td>
-			<td><a href="editinfo.jsp">Edit Info</a></td>
-			<td><a href="board.jsp">Boards</a></td>
+			<td><a href="editinfo.jsp">Edit Profile</a></td>
+			<td><a href="board.jsp">Board</a></td>
 			<shiro:hasRole name="admin">
 				<td><a href="secret.jsp">Secret Admin Page Here</a></td>
 			</shiro:hasRole>

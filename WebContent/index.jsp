@@ -9,6 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:import url="WEB-INF/menu.jsp"></c:import>
+	<c:import url="board.jsp"></c:import>
 </body>
 </html>

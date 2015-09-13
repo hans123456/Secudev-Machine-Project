@@ -5,9 +5,9 @@ import java.sql.SQLException;
 
 public class UserDAO extends DAO {
 
-	private final static String createQuery = "INSERT INTO `users` (`id`, `role_id`, `firstname`, `lastname`, `salutation_id`, `birthdate`, `username`, `password`, `about_me`) "
+	private final static String createQuery = "INSERT INTO `users` (`id`, `role_id`, `firstname`, `lastname`, `salutation_id`, `birthdate`, `username`, `password`, `about_me`, `datetime_joined`) "
 			+ "VALUES (NULL, (SELECT `id` FROM `roles` WHERE `role` = ?), ?, ?, "
-			+ "(SELECT `id` FROM `salutations` WHERE `salutation` = ?), ?, ?, ?, ?)";
+			+ "(SELECT `id` FROM `salutations` WHERE `salutation` = ?), ?, ?, ?, ?, NOW())";
 	private final static String[] createParams = { "role", "firstname", "lastname", "salutation", "birthdate",
 			"username", "password", "about_me" };
 
@@ -17,7 +17,7 @@ public class UserDAO extends DAO {
 	private final static String[] editParams = { "role", "firstname", "lastname", "salutation", "birthdate", "password",
 			"about_me", "username" };
 
-	private final static String getQuery = "SELECT `role`, `firstname`, `lastname`, `gender`, `salutation`, DATE_FORMAT(`birthdate`, '%M %d, %Y') as `birthdate`, `username`, `about_me` "
+	private final static String getQuery = "SELECT `role`, `firstname`, `lastname`, `gender`, `salutation`, `birthdate`, `username`, `about_me` "
 			+ "FROM `roles`, `users`, `genders`, `salutations` WHERE `username` = ? and `role_id` = `roles`.`id` and "
 			+ "`gender_id` = `genders`.`id` and `salutation_id` = `salutations`.`id`";
 	private final static String[] getResult = { "role", "firstname", "lastname", "gender", "salutation", "birthdate",

@@ -51,6 +51,8 @@ public class EditInfo extends HttpServlet {
 
 			if (!currentUser.isAuthenticated()) throw new SecurityBreachException();
 
+			boolean isAdmin = currentUser.hasRole("admin");
+
 			String role = request.getParameter("role");
 			String firstname = request.getParameter("firstname");
 			String lastname = request.getParameter("lastname");
@@ -79,7 +81,7 @@ public class EditInfo extends HttpServlet {
 
 			UserDAO dao = new UserDAO();
 			if (dao.edit(user)) {
-				if (currentUser.hasRole("admin") && role.equals("user")) {
+				if (isAdmin && role.equals("user")) {
 					currentUser.logout();
 					response.getWriter().print("logout");
 				} else {
@@ -89,6 +91,7 @@ public class EditInfo extends HttpServlet {
 			}
 
 		} catch (SecurityBreachException e) {
+			e.printStackTrace();
 			response.sendRedirect("error.jsp");
 		} catch (Exception e) {
 			response.sendRedirect("error.jsp");

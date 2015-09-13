@@ -52,7 +52,9 @@ public class DeletePost extends HttpServlet {
 			if (!(dao.checkIfCreator(p.getId(), currentUser.getPrincipal().toString()) || currentUser.hasRole("admin")))
 				throw new SecurityBreachException();
 
-			if (dao.delete(p)) {
+			if (dao.checkIfDeleted(p.getId())) {
+				response.getWriter().print("deleted");
+			} else if (dao.delete(p)) {
 				response.getWriter().print("success");
 				System.out.println("Hooray Post Created!");
 			} else {
