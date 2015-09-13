@@ -14,6 +14,11 @@ app.controller('myformController', [ '$scope', function($scope) {
 
   var previewResult = function(res) {
     $('#PreviewText').html(res);
+    $('a.colorbox').colorbox({
+      photo : true,
+      maxWidth : '95%',
+      maxHeight : '95%',
+    });
   };
 
   var createResult = function(res) {

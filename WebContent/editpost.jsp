@@ -35,7 +35,8 @@
 							|| currentUser.hasRole("admin")))
 						throw new SecurityBreachException();
 					Post post = dao.getInfo(id);
-					if (post.getInfo("deleted").equals("true")) throw new SecurityBreachException();
+					if (post.getInfo("deleted").equals("true"))
+						throw new SecurityBreachException();
 					request.setAttribute("id", id);
 					request.setAttribute("post", post);
 				} catch (Exception e) {

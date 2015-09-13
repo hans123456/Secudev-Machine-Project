@@ -90,6 +90,9 @@
 
     <!-- Root scope. This scope uses when processor started work and by default, if not set other scope -->
     <scope name="ROOT" parent="basic">
+    	
+        <coderef name="noparse"/>
+    
         <!-- Formatting -->
         <coderef name="bold"/>
         <coderef name="u"/>
@@ -125,6 +128,11 @@
         <coderef name="table"/>
     </scope>
 
+    <code name="noparse">
+        <pattern ignoreCase="true">[noparse]<var scope="escapeXml" inherit="false"/>[/noparse]</pattern>
+        <template><var/></template>
+    </code>
+    
     <!-- Simple formatting -->
     <code name="bold">
         <pattern ignoreCase="true">[b]<var inherit="true"/>[/b]</pattern>
@@ -152,7 +160,7 @@
     <!-- Font size -->
     <code name="size">
         <pattern ignoreCase="true">[size=<var name="size" scope="escapeXml"/>]<var name="text" inherit="true"/>[/size]</pattern>
-        <template>&lt;span style=&quot;font-size:<var name="size"/>;&quot;&gt;<var name="text"/>&lt;/span&gt;</template>
+        <template>&lt;span style=&quot;font-size:<var name="size"/>px;&quot;&gt;<var name="text"/>&lt;/span&gt;</template>
     </code>
 
     <!-- Insert image -->

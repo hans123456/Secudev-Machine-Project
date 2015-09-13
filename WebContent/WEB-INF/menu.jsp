@@ -13,7 +13,7 @@
 <shiro:guest>
    	Hi there!  Please <a href="login.jsp">Login</a> or <a
 		href="register.jsp">Register</a>
-	today! 
+	today! <br />
 </shiro:guest>
 <shiro:user>
 	<table class="menu" border="1">

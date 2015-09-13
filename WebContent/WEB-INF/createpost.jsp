@@ -32,5 +32,6 @@
 			Preview
 			<div id="PreviewText"></div>
 		</div>
+		<div>Available Tags: <a href="/postTags.jsp" target="_blank">Here</a></div>
 	</div>
 </div>
