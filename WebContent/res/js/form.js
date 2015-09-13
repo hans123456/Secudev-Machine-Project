@@ -1,32 +1,3 @@
-var attr = [ 'role', 'firstname', 'lastname', 'gender', 'salutation',
-    'birthdate', 'username', 'password', 'about_me' ];
-
-var app = angular.module('register', []);
-app.controller('myformController', [ '$scope', function($scope) {
-  var resultElem = $('#result');
-  var result = function(res) {
-    if (res == "success") {
-      resultElem.css("color", "green");
-      resultElem.html("Successfully Registered.");
-      document.getElementById("myform").reset();
-    } else {
-      resultElem.css("color", "red");
-      if (res == "fail") resultElem.html("Username Already Taken.");
-      else if (res == "bad date") resultElem.html("Fix Your Computer's Time.");
-      else resultElem.html("You did Something Bad.");
-    }
-  }
-  $scope.register = function() {
-    resultElem.html('');
-    var data = {};
-    for (var i = 0; i < attr.length; i++)
-      data[attr[i]] = $('#' + attr[i]).val();
-    $.post("register", data).done(result);
-  };
-} ]);
-
-app.directive("legalAge", legalAge);
-
 function legalAge() {
   return {
     restrict : 'A',
@@ -41,7 +12,8 @@ function legalAge() {
           showOtherMonths : true,
           onSelect : function(date) {
             // var ageDifMs = Date.now() - new Date(date).getTime();
-            // var ageDate = new Date(ageDifMs); // miliseconds from epoch
+            // var ageDate = new Date(ageDifMs); // miliseconds from
+            // epoch
             // ageDate.setDate(ageDate.getDate() + 1);
             // ageDate.getUTCFullYear() - 1970;
             var yBday = new Date(date).getUTCFullYear();

@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,17 +16,26 @@ import models.UserDAO;
 import models.exceptions.SecurityBreachException;
 
 /**
- * Servlet implementation class register
+ * Servlet implementation class EditInfo
  */
-@WebServlet("/register")
-public class Register extends HttpServlet {
+@WebServlet("/editinfo")
+public class EditInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Register() {
+	public EditInfo() {
 		super();
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		Subject currentUser = SecurityUtils.getSubject();
+		if (currentUser.isAuthenticated()) System.out.println("logged in");
+		else System.out.println("not logged in");
+
 	}
 
 	/**
@@ -41,7 +49,9 @@ public class Register extends HttpServlet {
 
 			Subject currentUser = SecurityUtils.getSubject();
 
-			if (!currentUser.hasRole("admin")) throw new SecurityBreachException();
+			if (!currentUser.isAuthenticated()) throw new SecurityBreachException();
+
+			boolean isAdmin = currentUser.hasRole("admin");
 
 			String role = request.getParameter("role");
 			String firstname = request.getParameter("firstname");
@@ -49,7 +59,7 @@ public class Register extends HttpServlet {
 			String gender = request.getParameter("gender");
 			String salutation = request.getParameter("salutation");
 			String birthdate = request.getParameter("birthdate");
-			String username = request.getParameter("username");
+			String username = currentUser.getPrincipal().toString();
 			String password = request.getParameter("password");
 			String about_me = request.getParameter("about_me");
 
@@ -70,11 +80,14 @@ public class Register extends HttpServlet {
 			user.setAboutMe(about_me);
 
 			UserDAO dao = new UserDAO();
-			if (dao.create(user)) {
-				response.getWriter().print("success");
-				System.out.println("Hooray Registered!");
-			} else {
-				response.getWriter().print("fail");
+			if (dao.edit(user)) {
+				if (isAdmin && role.equals("user")) {
+					currentUser.logout();
+					response.getWriter().print("logout");
+				} else {
+					response.getWriter().print("success");
+				}
+				System.out.println("Hooray Edited Info!");
 			}
 
 		} catch (SecurityBreachException e) {

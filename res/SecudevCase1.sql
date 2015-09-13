@@ -34,10 +34,22 @@ create table if not exists users (
 	username varchar(50) unique not null,
 	password varchar(255) not null,
 	about_me varchar(1000),
+	datetime_joined datetime not null,
 	foreign key (role_id) references roles (id),
 	foreign key (salutation_id) references salutations (id),
 	primary key (id)
 );
 
-INSERT INTO `users` (`id`, `role_id`, `firstname`, `lastname`, `salutation_id`, `birthdate`, `username`, `password`, `about_me`) VALUES (NULL, '1', 'admin', 'admin', '1', '1990-01-01', 'admin', '$shiro1$SHA-256$500000$F25RGo3voV7NjYrWv83w5g==$OBFlfQAHy8cSroRH7a5m966aphc8Y/Zv+jAGD0NlaQM=', 'something');
-INSERT INTO `users` (`id`, `role_id`, `firstname`, `lastname`, `salutation_id`, `birthdate`, `username`, `password`, `about_me`) VALUES (NULL, '2', 'user', 'user', '1', '1990-01-01', 'user', '$shiro1$SHA-256$500000$F25RGo3voV7NjYrWv83w5g==$OBFlfQAHy8cSroRH7a5m966aphc8Y/Zv+jAGD0NlaQM=', 'something');
+INSERT INTO `users` (`id`, `role_id`, `firstname`, `lastname`, `salutation_id`, `birthdate`, `username`, `password`, `about_me`, `datetime_joined`) VALUES (NULL, '1', 'admin', 'admin', '1', '1990-01-01', 'admin', '$shiro1$SHA-256$500000$F25RGo3voV7NjYrWv83w5g==$OBFlfQAHy8cSroRH7a5m966aphc8Y/Zv+jAGD0NlaQM=', 'something', now());
+INSERT INTO `users` (`id`, `role_id`, `firstname`, `lastname`, `salutation_id`, `birthdate`, `username`, `password`, `about_me`, `datetime_joined`) VALUES (NULL, '2', 'user', 'user', '1', '1990-01-01', 'user', '$shiro1$SHA-256$500000$F25RGo3voV7NjYrWv83w5g==$OBFlfQAHy8cSroRH7a5m966aphc8Y/Zv+jAGD0NlaQM=', 'something', now());
+
+create table if not exists posts (
+	id int unsigned not null auto_increment,
+	user_id int unsigned not null,
+	datetime_created datetime not null,
+	datetime_lastedited datetime,
+	post varchar(5000) not null,
+	deleted boolean default false,
+	foreign key (user_id) references users (id),
+	primary key (id)
+)
