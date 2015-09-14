@@ -141,12 +141,11 @@
 								long.</small><small ng-cloak ng-show="myform.password.$error.pattern">No
 								Spaces Allowed.</small></td>
 					</tr>
-					<tr>
+					<tr ng-controller="myformController2">
 						<td>About Me :</td>
 						<td><textarea name="about_me" id="about_me" rows="10"
 								style="resize: vertical" class="width-fixed" ng-model="about_me"
-								ng-maxlength="1000"
-								ng-init="about_me='<c:out value="${user.getInfo(\"about_me\")}" />'"></textarea></td>
+								ng-maxlength="1000"></textarea></td>
 					</tr>
 					<tr>
 						<td></td>
@@ -172,6 +171,11 @@
           $("#salutation").val(
               '<c:out value="${user.getInfo(\"salutation\")}" />');
         });
+    app.controller('myformController2', [ '$scope', function($scope) {
+      var el = document.createElement('html');
+      el.innerHTML = '<c:out value="${user.getInfo(\"about_me\")}" />';
+      $scope.about_me = el.getElementsByTagName('body')[0].innerHTML;
+    } ]);
   </script>
 </shiro:user>
 <shiro:hasRole name="admin">

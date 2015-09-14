@@ -68,17 +68,23 @@
 		<c:forEach var="post" items="${posts}">
 			<div class="post">
 				<div class="postheader">
-					<div class="postdate">Posted:
-						${post.getInfo("datetime_created")}</div>
+					<div class="postdate">
+						Posted:
+						<c:out value='${post.getInfo("datetime_created")}' />
+					</div>
 					<div class="postid">
-						<a href="#">#${post.getInfo("id")}</a>
+						<a href="#">#<c:out value='${post.getInfo("id")}' /></a>
 					</div>
 				</div>
 				<div class="postbody">
 					<div class="postuserinfo">
-						<a class="userlink" href="profile.jsp?id=${post.getInfo("username")}">${post.getInfo("username")}</a>
-						<div class="postuserjoineddate">Joined Date:
-							${post.getInfo("datetime_joined")}</div>
+						<a class="userlink"
+							href='profile.jsp?id=${post.getInfo("username")}'> <c:out
+								value='${post.getInfo("username")}' /></a>
+						<div class="postuserjoineddate">
+							Joined Date:
+							<c:out value='${post.getInfo("datetime_joined")}' />
+						</div>
 					</div>
 					<c:if test="${post.getInfo(\"deleted\").equals(\"false\") }">
 						<c:set var="username"
@@ -105,8 +111,10 @@
 				<c:if
 					test="${post.getInfo(\"deleted\").equals(\"false\") && post.getInfo(\"datetime_lastedited\")!=null}">
 					<div class="postfooter">
-						<div class="postdate">Last Edited:
-							${post.getInfo("datetime_lastedited")}</div>
+						<div class="postdate">
+							Last Edited:
+							<c:out value='${post.getInfo("datetime_lastedited")}' />
+						</div>
 					</div>
 				</c:if>
 			</div>
