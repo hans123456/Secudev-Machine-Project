@@ -41,8 +41,6 @@ public class Register extends HttpServlet {
 
 			Subject currentUser = SecurityUtils.getSubject();
 
-			if (!currentUser.hasRole("admin")) throw new SecurityBreachException();
-
 			String role = request.getParameter("role");
 			String firstname = request.getParameter("firstname");
 			String lastname = request.getParameter("lastname");

@@ -1,8 +1,11 @@
 package models;
 
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
+import models.exceptions.NotAnImageException;
 import models.exceptions.SecurityBreachException;
+import utilities.ValidImageChecker;
 
 public class Post {
 
@@ -38,8 +41,11 @@ public class Post {
 		return this.id;
 	}
 
-	public void setPost(String post) throws SecurityBreachException {
+	public final static Pattern ImagePattern = Pattern.compile("\\[img](.*?)\\[/img]");
+
+	public void setPost(String post) throws SecurityBreachException, NotAnImageException {
 		if (post == null || post.length() <= 0 || post.length() > 5000) throw new SecurityBreachException();
+		if (!ValidImageChecker.checkUsingRegex(ImagePattern, post)) throw new NotAnImageException();
 		this.info.put("post", post);
 	}
 

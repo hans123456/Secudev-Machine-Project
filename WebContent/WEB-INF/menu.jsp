@@ -18,7 +18,9 @@
 <shiro:user>
 	<table class="menu" border="1">
 		<tr>
-			<td><a href="logout">Logout</a></td>
+			<td><form id="logout" method="post" action="/logout">
+					<a href="#" onclick="document.getElementById('logout').submit();">Logout</a>
+				</form></td>
 			<td><a
 				href="profile.jsp?id=<%=SecurityUtils.getSubject().getPrincipal().toString()%>">View
 					Profile</a></td>

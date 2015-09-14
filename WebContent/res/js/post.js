@@ -13,7 +13,14 @@ app.controller('myformController', [ '$scope', function($scope) {
   var resultElem = $('#result');
 
   var previewResult = function(res) {
-    $('#PreviewText').html(res);
+    if (res.startsWith("post")) {
+      $('#PreviewText').html(res.substring(5));
+      $('#PreviewPost').show();
+      resultElem.html("");
+    } else if (res.startsWith("image")) {
+      resultElem.css("color", "red");
+      resultElem.html("Fix Image Link.");
+    }
     $('a.colorbox').colorbox({
       photo : true,
       maxWidth : '95%',
@@ -34,7 +41,8 @@ app.controller('myformController', [ '$scope', function($scope) {
       }, 1000);
     } else {
       resultElem.css("color", "red");
-      resultElem.html("You did Something Bad.");
+      if (res == "image") resultElem.html("Fix Image Link.");
+      else resultElem.html("You did Something Bad.");
     }
   };
 
@@ -61,7 +69,6 @@ app.controller('myformController', [ '$scope', function($scope) {
 
   $scope.preview = function() {
     $.post('/previewpost', $('#myform').serialize()).done(previewResult);
-    $("#PreviewPost").show();
   }
 
   $scope.createpost = function() {
