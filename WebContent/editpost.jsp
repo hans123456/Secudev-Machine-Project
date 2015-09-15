@@ -7,6 +7,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html ng-app="post">
 <head>
@@ -53,20 +54,20 @@
 				ng-submit="myform.$valid && editpost()"
 				ng-controller="myformController" novalidate>
 				<div id="Post">
-					<div id="PostNotification">
-						<div id="result"></div>
-						<a ng-cloak
-							ng-show="(myform.post.$dirty || myform.$submitted) && myform.post.$error.required">
-							Required.</a> <a ng-cloak ng-show="myform.post.$error.maxlength">Too
-							long ( Max 5000 characters ).</a><a ng-cloak
-							ng-show="myform.post.$error.minlength">Too Short ( Min 3
-							characters ).</a>
+					<div ng-controller="myformController2">
+						<div id="PostNotification">
+							<div id="result"></div>
+							<a ng-cloak
+								ng-show="(myform.post.$dirty || myform.$submitted) && myform.post.$error.required">
+								Required.</a> <a ng-cloak ng-show="myform.post.$error.maxlength">Too
+								long ( Max 5000 characters ).</a><a ng-cloak
+								ng-show="myform.post.$error.minlength">Too Short ( Min 3
+								characters ).</a>
+						</div>
+						<input name="id" ng-cloak ng-show="false" value="${id}"></input>
+						<textarea name="post" ng-model="post" ng-minlength=3
+							ng-maxlength=5000 required></textarea>
 					</div>
-					<input name="id" ng-cloak ng-show="false" value="${id}"></input>
-					<c:set var="posttext" value="${post.getInfo(\"post\")}"></c:set>
-					<textarea name="post" ng-model="post" ng-minlength=3
-						ng-maxlength=5000 ng-init="post='<c:out value="${posttext}"/>'"
-						required></textarea>
 					<div id="PostSubmit">
 						<input type="button" ng-click="myform.$valid && preview()"
 							value="Preview"> <input type="submit" value="Submit">
@@ -78,6 +79,13 @@
 				<div id="PreviewText"></div>
 			</div>
 		</fieldset>
+		<script>
+      app.controller('myformController2', [ '$scope', function($scope) {
+        var el = document.createElement('html');
+        el.innerHTML = '<c:out value="${post.getInfo(\"post\")}"/>';
+        $scope.post = el.getElementsByTagName('body')[0].innerHTML;
+      } ]);
+    </script>
 	</shiro:user>
 </body>
 </html>
