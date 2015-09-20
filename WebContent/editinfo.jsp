@@ -24,6 +24,7 @@
 		<script src="res/js/lib/jquery-ui.js"></script>
 		<script src="res/js/form.js"></script>
 		<script src="res/js/editinfo.js"></script>
+		<script src="res/js/setter.js"></script>
 		<%
 			UserDAO dao = new UserDAO();
 				User user = dao.getInfo(SecurityUtils.getSubject().getPrincipal().toString());
@@ -59,7 +60,7 @@
 						<td><input type="text" name="firstname" id="firstname"
 							class="width-fixed" ng-model="firstname" ng-maxlength="50"
 							ng-pattern="/^[a-zA-Z0-9 ]*$/"
-							ng-init="firstname='<c:out value="${user.getInfo(\"firstname\")}" />'"
+							set-value="<c:out value="${user.getInfo(\"firstname\")}"/>"
 							required /></td>
 					</tr>
 					<tr>
@@ -75,7 +76,7 @@
 						<td><input type="text" name="lastname" id="lastname"
 							class="width-fixed" ng-model="lastname" ng-maxlength="50"
 							ng-pattern="/^[a-zA-Z0-9 ]*$/"
-							ng-init="lastname='<c:out value="${user.getInfo(\"lastname\")}" />'"
+							set-value="<c:out value="${user.getInfo(\"lastname\")}"/>"
 							required /></td>
 					</tr>
 					<tr>
@@ -108,7 +109,7 @@
 						<td style="vertical-align: middle">Birthdate :</td>
 						<td><input type="text" name="birthdate" id="birthdate"
 							ng-model="birthdate" legal-age="19"
-							ng-init="birthdate='<c:out value="${user.getInfo(\"birthdate\")}" />'"
+							set-value="<c:out value="${user.getInfo(\"birthdate\")}"/>"
 							required readonly /></td>
 					</tr>
 					<tr>
@@ -141,11 +142,12 @@
 								long.</small><small ng-cloak ng-show="myform.password.$error.pattern">No
 								Spaces Allowed.</small></td>
 					</tr>
-					<tr ng-controller="myformController2">
+					<tr>
 						<td>About Me :</td>
 						<td><textarea name="about_me" id="about_me" rows="10"
 								style="resize: vertical" class="width-fixed" ng-model="about_me"
-								ng-maxlength="1000"></textarea></td>
+								ng-maxlength="1000"
+								set-value="<c:out value="${user.getInfo(\"about_me\")}"/>"></textarea></td>
 					</tr>
 					<tr>
 						<td></td>
@@ -171,11 +173,6 @@
           $("#salutation").val(
               '<c:out value="${user.getInfo(\"salutation\")}" />');
         });
-    app.controller('myformController2', [ '$scope', function($scope) {
-      var el = document.createElement('html');
-      el.innerHTML = '<c:out value="${user.getInfo(\"about_me\")}" />';
-      $scope.about_me = el.getElementsByTagName('body')[0].innerHTML;
-    } ]);
   </script>
 </shiro:user>
 <shiro:hasRole name="admin">

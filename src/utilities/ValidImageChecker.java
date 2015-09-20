@@ -26,8 +26,8 @@ public class ValidImageChecker {
 			urlConnection = (HttpURLConnection) new URL(url).openConnection();
 			urlConnection.setRequestMethod("HEAD");
 			urlConnection.addRequestProperty("User-Agent", "Mozilla/4.0");
-			urlConnection.setInstanceFollowRedirects(true);
-			HttpURLConnection.setFollowRedirects(true);
+			urlConnection.setInstanceFollowRedirects(false);
+			HttpURLConnection.setFollowRedirects(false);
 			String contentType = urlConnection.getHeaderField("Content-Type");
 			if (!contentType.startsWith("image/")) result = false;
 		} catch (Exception e) {
