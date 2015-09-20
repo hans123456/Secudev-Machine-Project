@@ -69,7 +69,7 @@ form table tr td:nth-child(1) {
 			</tr>
 			<tr>
 				<td>Insert Link</td>
-				<td>[url=#]value[/img]</td>
+				<td>[url=#]value[/url]</td>
 				<td><a href="#">value</a></td>
 			</tr>
 			<tr>

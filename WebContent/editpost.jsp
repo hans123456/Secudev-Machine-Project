@@ -26,6 +26,7 @@
 		<script src="res/js/lib/jquery-2.1.4.min.js"></script>
 		<script src="res/js/lib/jquery.colorbox-min.js"></script>
 		<script src="res/js/post.js"></script>
+		<script src="res/js/setter.js"></script>
 		<%
 			try {
 					int id = -1;
@@ -36,8 +37,7 @@
 							|| currentUser.hasRole("admin")))
 						throw new SecurityBreachException();
 					Post post = dao.getInfo(id);
-					if (post.getInfo("deleted").equals("true"))
-						throw new SecurityBreachException();
+					if (post.getInfo("deleted").equals("true")) throw new SecurityBreachException();
 					request.setAttribute("id", id);
 					request.setAttribute("post", post);
 				} catch (Exception e) {
@@ -54,7 +54,7 @@
 				ng-submit="myform.$valid && editpost()"
 				ng-controller="myformController" novalidate>
 				<div id="Post">
-					<div ng-controller="myformController2">
+					<div>
 						<div id="PostNotification">
 							<div id="result"></div>
 							<a ng-cloak
@@ -66,7 +66,8 @@
 						</div>
 						<input name="id" ng-cloak ng-show="false" value="${id}"></input>
 						<textarea name="post" ng-model="post" ng-minlength=3
-							ng-maxlength=5000 required></textarea>
+							ng-maxlength=5000
+							set-value="<c:out value="${post.getInfo(\"post\")}"/>" required></textarea>
 					</div>
 					<div id="PostSubmit">
 						<input type="button" ng-click="myform.$valid && preview()"
@@ -79,13 +80,6 @@
 				<div id="PreviewText"></div>
 			</div>
 		</fieldset>
-		<script>
-      app.controller('myformController2', [ '$scope', function($scope) {
-        var el = document.createElement('html');
-        el.innerHTML = '<c:out value="${post.getInfo(\"post\")}"/>';
-        $scope.post = el.getElementsByTagName('body')[0].innerHTML;
-      } ]);
-    </script>
 	</shiro:user>
 </body>
 </html>

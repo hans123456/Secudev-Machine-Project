@@ -22,6 +22,7 @@ app.controller('myformController', [ '$scope', function($scope) {
       resultElem.html("Fix Image Link.");
     }
     $('a.colorbox').colorbox({
+      fixed : true,
       photo : true,
       maxWidth : '95%',
       maxHeight : '95%',
@@ -83,8 +84,18 @@ app.controller('myformController', [ '$scope', function($scope) {
 
 $(document).ready(function() {
   $('a.colorbox').colorbox({
+    fixed : true,
     photo : true,
     maxWidth : '95%',
     maxHeight : '95%',
+  });
+  $(document).bind('cbox_open', function() {
+    $('body').css({
+      overflow : 'hidden'
+    });
+  }).bind('cbox_closed', function() {
+    $('body').css({
+      overflow : 'auto'
+    });
   });
 });
