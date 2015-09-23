@@ -29,15 +29,6 @@ public class EditInfo extends HttpServlet {
 		super();
 	}
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		Subject currentUser = SecurityUtils.getSubject();
-		if (currentUser.isAuthenticated()) System.out.println("logged in");
-		else System.out.println("not logged in");
-
-	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)

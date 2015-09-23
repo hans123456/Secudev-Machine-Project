@@ -62,6 +62,8 @@ app.controller('myformController', [ '$scope', function($scope) {
         setTimeout(function() {
           window.location.href = "/board.jsp";
         }, 1000);
+      } else if (res == "image") {
+        resultElem.html("Fix Image Link.");
       } else {
         resultElem.html("You did Something Bad.");
       }

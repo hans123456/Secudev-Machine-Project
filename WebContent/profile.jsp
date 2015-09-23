@@ -18,10 +18,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="res/css/form.css" />
+<link rel="stylesheet" href="/res/css/form.css" />
 </head>
 <body>
-	<c:import url="WEB-INF/menu.jsp"></c:import>
+	<script src="/res/js/checkSession.js"></script>
+	<c:import url="/WEB-INF/menu.jsp"></c:import>
 	<br />
 	<c:if test="${user==null}">
 		<font color="red" style="margin-left: 10px;">User Does Not

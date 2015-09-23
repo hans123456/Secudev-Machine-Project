@@ -13,20 +13,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="res/css/lib/colorbox.css" />
-<link rel="stylesheet" href="res/css/board.css" />
-<link rel="stylesheet" href="res/css/post.css" />
+<link rel="stylesheet" href="/res/css/lib/colorbox.css" />
+<link rel="stylesheet" href="/res/css/board.css" />
+<link rel="stylesheet" href="/res/css/post.css" />
 </head>
 <body>
 	<shiro:guest>
 		<c:import url="/error.jsp"></c:import>
 	</shiro:guest>
 	<shiro:user>
-		<script src="res/js/lib/angular.min.js"></script>
-		<script src="res/js/lib/jquery-2.1.4.min.js"></script>
-		<script src="res/js/lib/jquery.colorbox-min.js"></script>
-		<script src="res/js/post.js"></script>
-		<script src="res/js/setter.js"></script>
+		<script src="/res/js/lib/angular.min.js"></script>
+		<script src="/res/js/lib/jquery-2.1.4.min.js"></script>
+		<script src="/res/js/lib/jquery.colorbox-min.js"></script>
+		<script src="/res/js/post.js"></script>
+		<script src="/res/js/setter.js"></script>
+		<script src="/res/js/checkSession.js"></script>
 		<%
 			try {
 					int id = -1;
@@ -46,7 +47,7 @@
 					dispatcher.forward(request, response);
 				}
 		%>
-		<c:import url="WEB-INF/menu.jsp"></c:import>
+		<c:import url="/WEB-INF/menu.jsp"></c:import>
 		<br />
 		<fieldset>
 			<legend>Edit Post</legend>

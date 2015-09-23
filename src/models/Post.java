@@ -41,7 +41,7 @@ public class Post {
 		return this.id;
 	}
 
-	public final static Pattern ImagePattern = Pattern.compile("\\[img](.*?)\\[/img]");
+	public final static Pattern ImagePattern = Pattern.compile("\\[img]([\\s\\S]*?)\\[/img]");
 
 	public void setPost(String post) throws SecurityBreachException, NotAnImageException {
 		if (post == null || post.length() <= 0 || post.length() > 5000) throw new SecurityBreachException();
@@ -54,4 +54,8 @@ public class Post {
 		this.info.put("username", username);
 	}
 
+	public static void main(String[] args) {
+		System.out.println("[img](.|\\n)*[/img]");
+	}
+	
 }

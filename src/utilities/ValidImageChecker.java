@@ -20,7 +20,7 @@ public class ValidImageChecker {
 	}
 
 	public static boolean isImage(String url) {
-		boolean result = true;
+		boolean result = false;
 		HttpURLConnection urlConnection;
 		try {
 			urlConnection = (HttpURLConnection) new URL(url).openConnection();
@@ -29,9 +29,8 @@ public class ValidImageChecker {
 			urlConnection.setInstanceFollowRedirects(false);
 			HttpURLConnection.setFollowRedirects(false);
 			String contentType = urlConnection.getHeaderField("Content-Type");
-			if (!contentType.startsWith("image/")) result = false;
+			if (contentType.startsWith("image/")) result = true;
 		} catch (Exception e) {
-			result = false;
 		}
 		return result;
 	}

@@ -14,8 +14,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="res/css/lib/colorbox.css" />
-<link rel="stylesheet" href="res/css/board.css" />
+<link rel="stylesheet" href="/res/css/lib/colorbox.css" />
+<link rel="stylesheet" href="/res/css/board.css" />
 <style>
 .menu {
 	border-collapse: collapse;
@@ -27,18 +27,16 @@
 </style>
 </head>
 <body>
-	<c:import url="WEB-INF/menu.jsp"></c:import>
+	<c:import url="/WEB-INF/menu.jsp"></c:import>
 	<shiro:user>
-		<script src="res/js/lib/jquery-2.1.4.min.js"></script>
-		<script src="res/js/lib/jquery.colorbox-min.js"></script>
-		<script src="res/js/board.js"></script>
+		<script src="/res/js/lib/jquery-2.1.4.min.js"></script>
+		<script src="/res/js/lib/jquery.colorbox-min.js"></script>
+		<script src="/res/js/board.js"></script>
+		<script src="/res/js/checkSession.js"></script>
 		<center>
 			<H1>The Board</H1>
 		</center>
-		<c:import url="WEB-INF/createpost.jsp"></c:import>
-		<!-- <div style="width: 96%; margin: 0 auto; text-align: right;">
-		<a href="/createpost.jsp">Create Post</a>
-	</div>-->
+		<c:import url="/WEB-INF/createpost.jsp"></c:import>
 		<%
 			int currentPage = 1;
 				int recordsPerPage = 10;
@@ -79,7 +77,7 @@
 				<div class="postbody">
 					<div class="postuserinfo">
 						<a class="userlink"
-							href='profile.jsp?id=${post.getInfo("username")}'> <c:out
+							href='/profile.jsp?id=${post.getInfo("username")}'> <c:out
 								value='${post.getInfo("username")}' /></a>
 						<div class="postuserjoineddate">
 							Joined Date:
@@ -123,7 +121,7 @@
 			<div>
 				<div class="pagination_n">
 					<a
-						<c:if test="${currentPage > 1}">href="board.jsp?page=${currentPage - 1}"</c:if>>Previous</a>
+						<c:if test="${currentPage > 1}">href="/board.jsp?page=${currentPage - 1}"</c:if>>Previous</a>
 				</div>
 				<c:forEach begin="1" end="${noOfPages}" var="i">
 					<c:choose>
@@ -132,14 +130,14 @@
 						</c:when>
 						<c:otherwise>
 							<div class="pagination_n">
-								<a href="board.jsp?page=${i}">${i}</a>
+								<a href="/board.jsp?page=${i}">${i}</a>
 							</div>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<div class="pagination_n">
 					<a
-						<c:if test="${currentPage lt noOfPages}">href="board.jsp?page=${currentPage + 1}"</c:if>>Next</a>
+						<c:if test="${currentPage lt noOfPages}">href="/board.jsp?page=${currentPage + 1}"</c:if>>Next</a>
 				</div>
 			</div>
 		</div>

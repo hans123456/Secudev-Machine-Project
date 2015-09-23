@@ -11,26 +11,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="res/css/form.css" />
-<link rel="stylesheet" href="res/css/lib/jquery-ui.css" />
+<link rel="stylesheet" href="/res/css/form.css" />
+<link rel="stylesheet" href="/res/css/lib/jquery-ui.css" />
 </head>
 <body>
 	<shiro:guest>
 		<c:import url="/error.jsp"></c:import>
 	</shiro:guest>
 	<shiro:user>
-		<script src="res/js/lib/angular.min.js"></script>
-		<script src="res/js/lib/jquery-2.1.4.min.js"></script>
-		<script src="res/js/lib/jquery-ui.js"></script>
-		<script src="res/js/form.js"></script>
-		<script src="res/js/editinfo.js"></script>
-		<script src="res/js/setter.js"></script>
+		<script src="/res/js/lib/angular.min.js"></script>
+		<script src="/res/js/lib/jquery-2.1.4.min.js"></script>
+		<script src="/res/js/lib/jquery-ui.js"></script>
+		<script src="/res/js/form.js"></script>
+		<script src="/res/js/editinfo.js"></script>
+		<script src="/res/js/setter.js"></script>
+		<script src="/res/js/checkSession.js"></script>
 		<%
 			UserDAO dao = new UserDAO();
 				User user = dao.getInfo(SecurityUtils.getSubject().getPrincipal().toString());
 				request.setAttribute("user", user);
 		%>
-		<c:import url="WEB-INF/menu.jsp"></c:import>
+		<c:import url="/WEB-INF/menu.jsp"></c:import>
 		<br />
 		<form name="myform" id="myform"
 			ng-submit="myform.$valid && editinfo();"

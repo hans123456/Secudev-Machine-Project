@@ -7,15 +7,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="res/css/form.css" />
+<link rel="stylesheet" href="/res/css/form.css" />
 </head>
 <body>
-	<script src="res/js/lib/jquery-2.1.4.min.js"></script>
+	<script src="/res/js/lib/jquery-2.1.4.min.js"></script>
 	<shiro:user>
 		<c:import url="/error.jsp"></c:import>
 	</shiro:user>
 	<shiro:guest>
-		<a href="./">Back to Home</a>
+		<a href="/">Back to Home</a>
 		<form name="myform" action="" method="post">
 			<fieldset>
 				<legend>Login</legend>
