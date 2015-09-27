@@ -20,7 +20,7 @@
 		<script src="/res/js/lib/jquery-ui.js"></script>
 		<script src="/res/js/form.js"></script>
 		<script src="/res/js/registration.js"></script>
-		<a href="./">Back to Home</a>
+		<a href="/">Back to Home</a>
 		<form name="myform" id="myform"
 			ng-submit="myform.$valid && register();"
 			ng-controller="myformController" novalidate>

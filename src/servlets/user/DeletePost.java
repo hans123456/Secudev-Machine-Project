@@ -1,4 +1,4 @@
-package servlets;
+package servlets.user;
 
 import java.io.IOException;
 
@@ -13,20 +13,19 @@ import org.apache.shiro.subject.Subject;
 
 import models.Post;
 import models.PostDAO;
-import models.exceptions.NotAnImageException;
 import models.exceptions.SecurityBreachException;
 
 /**
- * Servlet implementation class Post
+ * Servlet implementation class DeletePost
  */
-@WebServlet("/createpost")
-public class CreatePost extends HttpServlet {
+@WebServlet("/user/deletepost")
+public class DeletePost extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public CreatePost() {
+	public DeletePost() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -44,22 +43,25 @@ public class CreatePost extends HttpServlet {
 
 			if (!currentUser.isAuthenticated()) throw new SecurityBreachException();
 
-			String post = request.getParameter("post");
+			String id = request.getParameter("id");
 
 			Post p = new Post();
-			p.setUsername(SecurityUtils.getSubject().getPrincipal().toString());
-			p.setPost(post);
+			p.setIdString(id);
 
 			PostDAO dao = new PostDAO();
-			if (dao.create(p)) {
+
+			if (!(dao.checkIfCreator(p.getId(), currentUser.getPrincipal().toString()) || currentUser.hasRole("admin")))
+				throw new SecurityBreachException();
+
+			if (dao.checkIfDeleted(p.getId())) {
+				response.getWriter().print("deleted");
+			} else if (dao.delete(p)) {
 				response.getWriter().print("success");
 				System.out.println("Hooray Post Created!");
 			} else {
 				response.getWriter().print("fail");
 			}
 
-		} catch (NotAnImageException e) {
-			response.getWriter().print("image");
 		} catch (SecurityBreachException e) {
 			response.sendRedirect("error.jsp");
 		} catch (Exception e) {

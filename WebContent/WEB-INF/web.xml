@@ -7,6 +7,10 @@
   <error-page>
     <location>/error.jsp</location>
   </error-page>
+  <context-param>
+  	<param-name>backup.posts.location</param-name>
+  	<param-value>c:/</param-value>
+  </context-param>
   <listener>
     <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
   </listener>

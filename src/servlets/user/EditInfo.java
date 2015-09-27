@@ -1,4 +1,4 @@
-package servlets;
+package servlets.user;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ import models.exceptions.SecurityBreachException;
 /**
  * Servlet implementation class EditInfo
  */
-@WebServlet("/editinfo")
+@WebServlet("/user/editinfo")
 public class EditInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

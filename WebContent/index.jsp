@@ -9,6 +9,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:import url="/board.jsp"></c:import>
+	<shiro:guest>
+		<c:import url="/WEB-INF/menu.jsp"></c:import>
+	</shiro:guest>
+	<shiro:user>
+		<c:import url="/user/board.jsp"></c:import>
+	</shiro:user>
 </body>
 </html>

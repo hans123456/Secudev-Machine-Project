@@ -1,4 +1,4 @@
-package servlets;
+package servlets.user;
 
 import java.io.IOException;
 
@@ -19,7 +19,7 @@ import models.exceptions.SecurityBreachException;
 /**
  * Servlet implementation class EditPost
  */
-@WebServlet("/editpost")
+@WebServlet("/user/editpost")
 public class EditPost extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

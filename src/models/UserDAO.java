@@ -1,6 +1,5 @@
 package models;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAO extends DAO {
@@ -77,7 +76,7 @@ public class UserDAO extends DAO {
 			con = getConnection();
 			ps = con.prepareStatement(getQuery);
 			ps.setString(1, username);
-			ResultSet rs = ps.executeQuery();
+			rs = ps.executeQuery();
 			if (rs.next()) {
 				user = new User();
 				for (int i = 0, j = 1, k = getResult.length; i < k; i++, j++)

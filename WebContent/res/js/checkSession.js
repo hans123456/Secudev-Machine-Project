@@ -14,7 +14,7 @@
     var id = readCookie('JSESSIONID');
     setInterval(function() {
       if (id != readCookie('JSESSIONID')) location.reload();
-    }, 500);
+    }, 1000);
   })();
 
 })();

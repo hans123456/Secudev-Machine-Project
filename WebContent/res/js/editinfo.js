@@ -19,8 +19,10 @@ app.controller('myformController', [ '$scope', function($scope) {
   }
   $scope.editinfo = function() {
     resultElem.html('');
-    $.post("editinfo", $('#myform').serialize()).done(result);
+    $.post("/user/editinfo", $('#myform').serialize()).done(result);
   };
+  $scope.genders = genders;
+  $scope.salutations = salutations;
 } ]);
 
 app.directive("legalAge", legalAge);

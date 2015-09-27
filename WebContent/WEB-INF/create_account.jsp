@@ -28,9 +28,11 @@
 </tr>
 <tr>
 	<td>Gender :</td>
-	<td><select name="gender" id="gender" required><option
-				value="Male">Male</option>
-			<option value="Female">Female</option></select></td>
+	<td><select name="gender" id="gender" ng-model="gender"
+		ng-init="gender=genders[0]"
+		ng-options="o as o for o in genders track by o"
+		ng-change="salutation=salutations[gender][0]" required>
+	</select></td>
 </tr>
 <tr>
 	<td></td>
@@ -38,7 +40,9 @@
 </tr>
 <tr>
 	<td>Salutation :</td>
-	<td><select name="salutation" id="salutation" required></select></td>
+	<td><select name="salutation" id="salutation"
+		ng-model="salutation" ng-init="salutation=salutations[gender][0]"
+		ng-options="o as o for o in salutations[gender] track by o" required></select></td>
 </tr>
 <tr>
 	<td></td>
@@ -47,14 +51,15 @@
 <tr>
 	<td style="vertical-align: middle">Birthdate :</td>
 	<td><input type="text" name="birthdate" id="birthdate"
-		ng-model="birthdate" legal-age="19" required readonly/></td>
+		ng-model="birthdate" legal-age="19" required readonly /></td>
 </tr>
 <tr>
 	<td></td>
 	<td><small ng-cloak
 		ng-show="(myform.birthdate.$dirty || myform.$submitted) && myform.birthdate.$error.required">Required.</small>
 		<small ng-cloak ng-show="myform.birthdate.$error.date">LOL.</small> <small
-		ng-cloak ng-show="myform.birthdate.$error.legalAge">Must be above 18 years old.</small></td>
+		ng-cloak ng-show="myform.birthdate.$error.legalAge">Must be
+			above 18 years old.</small></td>
 </tr>
 <tr>
 	<td>Username :</td>

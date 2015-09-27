@@ -1,6 +1,5 @@
 package models;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,25 +13,22 @@ public class PostDAO extends DAO {
 	private final String editQuery = "UPDATE `posts` SET `datetime_lastedited` = NOW(), `post` = ? WHERE `id` = ?";
 	private final String[] editParams = { "post", "id" };
 
-	private final String deleteQuery = "UPDATE `posts` SET `datetime_lastedited` = NOW(), `deleted` = true WHERE `id` = ?";
+	private String deleteQuery = "UPDATE `posts` SET `datetime_lastedited` = NOW(), `deleted` = true WHERE `id` = ?";
 
-	private final String getQuery = "SELECT `firstname`, `username`, `datetime_joined`, `datetime_created`, `post`, `datetime_lastedited`, `deleted` "
+	private String getQuery = "SELECT `firstname`, `username`, `datetime_joined`, `datetime_created`, `post`, `datetime_lastedited`, `deleted` "
 			+ "FROM `users`, `posts` WHERE `users`.`id` = `posts`.`user_id` and `posts`.`id` = ?";
-	private final String[] getResult = { "firstname", "username", "datetime_joined", "datetime_created", "post",
+	private String[] getResult = { "firstname", "username", "datetime_joined", "datetime_created", "post",
 			"datetime_lastedited", "deleted" };
 
-	private final String getListQuery = "SELECT SQL_CALC_FOUND_ROWS `posts`.`id`, `firstname`, `username`, DATE_FORMAT(`datetime_joined`, '%b %d, %Y') as `datetime_joined`, "
-			+ "CONCAT(IF(DATE(`datetime_created`) = DATE(now()), 'Today', IF(DATE(`datetime_created`) = DATE(SUBDATE(now(), 1)), 'Yesterday', DATE_FORMAT(`datetime_created`, '%b %d, %Y'))), ' ', DATE_FORMAT(`datetime_created`,'%h:%i:%s %p')) as `datetime_created`, "
-			+ "`post`, CONCAT(IF(DATE(`datetime_lastedited`) = DATE(now()), 'Today', IF(DATE(`datetime_lastedited`) = DATE(SUBDATE(now(), 1)), 'Yesterday', DATE_FORMAT(`datetime_lastedited`, '%b %d, %Y'))), ' ', DATE_FORMAT(`datetime_lastedited`,'%h:%i:%s %p')) as `datetime_lastedited`, `deleted` "
-			+ "FROM `users`, `posts` WHERE `users`.`id` = `posts`.`user_id` ORDER BY `posts`.`id` desc LIMIT ?, ?";
-	private final String getListRowsQuery = "SELECT FOUND_ROWS()";
-	private final String[] getListResult = { "id", "firstname", "username", "datetime_joined", "datetime_created",
-			"post", "datetime_lastedited", "deleted" };
+	private String getListQuery = "SELECT SQL_CALC_FOUND_ROWS `id`, `firstname`, `username`, DATE_FORMAT(`datetime_joined`, '%b %d, %Y') as `datetime_joined`, CONCAT(IF(DATE(`datetime_created`) = DATE(now()), 'Today', IF(DATE(`datetime_created`) = DATE(SUBDATE(now(), 1)), 'Yesterday', DATE_FORMAT(`datetime_created`, '%b %d, %Y'))), ' ', DATE_FORMAT(`datetime_created`,'%h:%i:%s %p')) as `datetime_created`, `post`, CONCAT(IF(DATE(`datetime_lastedited`) = DATE(now()), 'Today', IF(DATE(`datetime_lastedited`) = DATE(SUBDATE(now(), 1)), 'Yesterday', DATE_FORMAT(`datetime_lastedited`, '%b %d, %Y'))), ' ', DATE_FORMAT(`datetime_lastedited`,'%h:%i:%s %p')) as `datetime_lastedited`, `deleted` FROM (SELECT `posts`.`id`, `firstname`, `username`, `datetime_joined`, `datetime_created`, `post`, `datetime_lastedited`, `deleted` FROM `users`, `posts` WHERE `users`.`id` = `posts`.`user_id` AND `posts`.`deleted` = false ORDER BY `posts`.`id` desc) as `potato` WHERE `post` like ?";
+	private String getListRowsQuery = "SELECT FOUND_ROWS()";
+	private String[] getListResult = { "id", "firstname", "username", "datetime_joined", "datetime_created", "post",
+			"datetime_lastedited", "deleted" };
 
-	private final String checkIfCreatorQuery = "SELECT EXISTS(SELECT 1 FROM `posts` WHERE `id` = ? and `user_id` = "
+	private String checkIfCreatorQuery = "SELECT EXISTS(SELECT 1 FROM `posts` WHERE `id` = ? and `user_id` = "
 			+ "(SELECT `id` FROM `users` WHERE `username` = ?)) as `result`";
 
-	private final String checkIfDeletedQuery = "SELECT EXISTS(SELECT 1 FROM `posts` WHERE `id` = ? and `deleted` = true)"
+	private String checkIfDeletedQuery = "SELECT EXISTS(SELECT 1 FROM `posts` WHERE `id` = ? and `deleted` = true)"
 			+ " as `result`";
 
 	private int noOfRecords;
@@ -182,15 +178,23 @@ public class PostDAO extends DAO {
 		return result;
 	}
 
-	public List<Post> getList(int offset, int recordsPerPage) {
+	public List<Post> getList(int offset, int recordsPerPage, String search, List<BoardQuery> queries) {
 		List<Post> posts = new ArrayList<Post>();
 		Post post = null;
 		try {
 			con = getConnection();
+			for (BoardQuery q : queries)
+				getListQuery += q.toString();
+			getListQuery += " LIMIT ?, ? ";
 			ps = con.prepareStatement(getListQuery);
-			ps.setInt(1, offset);
-			ps.setInt(2, recordsPerPage);
-			ResultSet rs = ps.executeQuery();
+			int pi = 1;
+			ps.setString(pi++, "%" + search + "%");
+			for (BoardQuery q : queries)
+				for (String p : q.getQueryParams())
+					ps.setString(pi++, p);
+			ps.setInt(pi++, offset);
+			ps.setInt(pi++, recordsPerPage);
+			rs = ps.executeQuery();
 			while (rs.next()) {
 				post = new Post();
 				for (int i = 0, j = 1, k = getListResult.length; i < k; i++, j++)
@@ -218,6 +222,37 @@ public class PostDAO extends DAO {
 
 	public int getNoOfRecords() {
 		return noOfRecords;
+	}
+
+	private String backUpPostsQuery = "SELECT `username`, `datetime_created`, `post` FROM `users`, `posts` WHERE `users`.`id` = `posts`.`user_id` ORDER BY `datetime_created`";
+	private String[] backUpPostsResult = { "username", "datetime_created", "post" };
+
+	public List<Post> backUpPosts() {
+		List<Post> posts = new ArrayList<Post>();
+		Post post = null;
+		try {
+			con = getConnection();
+			ps = con.prepareStatement(backUpPostsQuery);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				post = new Post();
+				for (int i = 0, j = 1, k = backUpPostsResult.length; i < k; i++, j++)
+					post.setInfo(backUpPostsResult[i], rs.getObject(j).toString());
+				posts.add(post);
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null) ps.close();
+				if (con != null) con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return posts;
 	}
 
 }

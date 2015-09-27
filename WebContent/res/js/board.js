@@ -21,7 +21,7 @@ var result = function(res) {
 function deletePost(id) {
   var ans = confirm("Are you sure?");
   if (ans == true) {
-    $.post('/deletepost', {
+    $.post('/user/deletepost', {
       'id' : id
     }).done(result)
   }
