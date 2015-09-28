@@ -28,6 +28,7 @@
 			<td><a href="/user/board.jsp">Board</a></td>
 			<shiro:hasRole name="admin">
 				<td><a href="/admin/secret.jsp">Secret Admin Page Here</a></td>
+				<td><a href="/admin/backup.jsp">Secret Backups Page Here</a></td>
 			</shiro:hasRole>
 		</tr>
 	</table>

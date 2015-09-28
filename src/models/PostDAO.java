@@ -1,5 +1,6 @@
 package models;
 
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -234,6 +235,13 @@ public class PostDAO extends DAO {
 			con = getConnection();
 			ps = con.prepareStatement(backUpPostsQuery);
 			rs = ps.executeQuery();
+			{ // column header
+				ResultSetMetaData rsmd = rs.getMetaData();
+				post = new Post();
+				for (int i = 0, j = 1, k = rsmd.getColumnCount(); i < k; i++, j++)
+					post.setInfo(backUpPostsResult[i], rsmd.getColumnName(j));
+				posts.add(post);
+			}
 			while (rs.next()) {
 				post = new Post();
 				for (int i = 0, j = 1, k = backUpPostsResult.length; i < k; i++, j++)

@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -43,10 +42,10 @@ public class BackUpPosts extends HttpServlet {
 	private String[] backUpPosts = { "username", "datetime_created", "post" };
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		Subject currentUser = SecurityUtils.getSubject();
@@ -55,12 +54,11 @@ public class BackUpPosts extends HttpServlet {
 
 			if (!currentUser.hasRole("admin")) throw new SecurityBreachException();
 
-			DateTimeFormatter dtf = DateTimeFormat.forPattern("MM-dd-yyyy HH-mm-ss");
-			String fileName = getServletContext().getRealPath("/") + "..\\backups\\posts\\" + LocalDateTime.now().toString(dtf)
-					+ ".csv";
-			File file = new File(fileName);
+			DateTimeFormatter dtf = DateTimeFormat.forPattern("MM-dd-yyyy hh.mm a");
+			String fileName = LocalDateTime.now().toString(dtf) + " " + System.currentTimeMillis() + ".csv";
+			String fileNameWithDirectory = System.getProperty("catalina.home") + "/secudev/backup/post/" + fileName;
+			File file = new File(fileNameWithDirectory);
 			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file)));
-			System.out.println(file.toPath());
 
 			PostDAO dao = new PostDAO();
 
@@ -78,6 +76,8 @@ public class BackUpPosts extends HttpServlet {
 
 			out.flush();
 			out.close();
+
+			response.getWriter().printf("Link To File : <a href='/admin/backup/post/%s'>Link</a>", fileName);
 
 		} catch (SecurityBreachException e) {
 			e.printStackTrace();
