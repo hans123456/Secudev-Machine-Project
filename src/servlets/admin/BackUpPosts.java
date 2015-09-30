@@ -56,7 +56,10 @@ public class BackUpPosts extends HttpServlet {
 
 			DateTimeFormatter dtf = DateTimeFormat.forPattern("MM-dd-yyyy hh.mm a");
 			String fileName = LocalDateTime.now().toString(dtf) + " " + System.currentTimeMillis() + ".csv";
-			String fileNameWithDirectory = System.getProperty("catalina.home") + "/secudev/backup/post/" + fileName;
+			String directory = System.getProperty("catalina.home") + "/secudev/backup/post/";
+			String fileNameWithDirectory = directory + fileName;
+			File folder = new File(directory);
+			if (!folder.exists()) folder.mkdirs();
 			File file = new File(fileNameWithDirectory);
 			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file)));
 

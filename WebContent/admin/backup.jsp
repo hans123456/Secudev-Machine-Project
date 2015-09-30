@@ -50,6 +50,8 @@
 </style>
 <%
 	File folder = new File(System.getProperty("catalina.home") + "/secudev/backup/post");
+	if (!folder.exists())
+		folder.mkdirs();
 	File[] files = folder.listFiles();
 	String[][] filesLink = new String[files.length][2];
 	for (int i = files.length - 1, j = 0; i >= 0; i--) {
@@ -88,18 +90,19 @@
 			</div>
 		</c:forEach>
 	</div>
+	<div style="margin-bottom: 40px;"></div>
 </body>
 <script>
-  (function() {
-    var app = angular.module('backup', []);
-    app.controller('backupcontroller', [ '$scope', function($scope) {
-      $scope.backup = function() {
-        $('#result').html("");
-        $.post('/admin/backupposts').done(function(res) {
-          $('#result').html(res);
-        });
-      }
-    } ]);
-  })();
+	(function() {
+		var app = angular.module('backup', []);
+		app.controller('backupcontroller', [ '$scope', function($scope) {
+			$scope.backup = function() {
+				$('#result').html("");
+				$.post('/admin/backupposts').done(function(res) {
+					$('#result').html(res);
+				});
+			}
+		} ]);
+	})();
 </script>
 </html>

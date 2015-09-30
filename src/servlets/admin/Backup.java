@@ -3,6 +3,7 @@ package servlets.admin;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
-
-import models.exceptions.SecurityBreachException;
 
 /**
  * Servlet implementation class test
@@ -35,19 +34,26 @@ public class Backup extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		OutputStream out = response.getOutputStream();
+		OutputStream out = null;
 		try {
 			String path = request.getPathInfo().replaceAll("\\.\\./", "");
 			File file = new File(System.getProperty("catalina.home") + "/secudev/backup/" + path);
-			if (!file.isFile()) throw new SecurityBreachException();
-			response.setContentType("application/octet-stream");
-			response.setHeader("Content-Disposition", "filename=\"" + file.getName() + "\"");
-			FileUtils.copyFile(file, out);
+			if (file.isFile()) {
+				out = response.getOutputStream();
+				response.setContentType("application/octet-stream");
+				response.setHeader("Content-Disposition", "filename=\"" + file.getName() + "\"");
+				FileUtils.copyFile(file, out);
+			} else {
+				PrintWriter pw = response.getWriter();
+				pw.println("File Does Not Exist.");
+			}
 		} catch (Exception e) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		} finally {
-			out.flush();
-			out.close();
+			if (out != null) {
+				out.flush();
+				out.close();
+			}
 		}
 	}
 
