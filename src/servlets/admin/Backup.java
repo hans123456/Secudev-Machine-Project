@@ -38,7 +38,7 @@ public class Backup extends HttpServlet {
 		try {
 			String path = request.getPathInfo().replaceAll("\\.\\./", "");
 			File file = new File(System.getProperty("catalina.home") + "/secudev/backup/" + path);
-			if (file.isFile()) {
+			if (file.exists() && file.isFile()) {
 				out = response.getOutputStream();
 				response.setContentType("application/octet-stream");
 				response.setHeader("Content-Disposition", "filename=\"" + file.getName() + "\"");
