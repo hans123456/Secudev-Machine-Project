@@ -36,7 +36,7 @@ public class Backup extends HttpServlet {
 			throws ServletException, IOException {
 		OutputStream out = null;
 		try {
-			String path = request.getPathInfo().replaceAll("\\.\\./", "");
+			String path = request.getPathInfo();
 			File file = new File(System.getProperty("catalina.home") + "/secudev/backup/" + path);
 			if (file.exists() && file.isFile()) {
 				out = response.getOutputStream();
