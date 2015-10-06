@@ -178,7 +178,7 @@ li {
 						<c:if
 							test="${post.getInfo(\"username\").equals(username) || isAdmin}">
 							<div class="postuseroptions">
-								<a class="editlink" href="editpost.jsp?id=${id}">Edit</a> <a
+								<a class="editlink" href="/user/editpost.jsp?id=${id}">Edit</a> <a
 									class="deletelink" href="#"
 									onclick="deletePost(${id}); return false;">Delete</a>
 							</div>
