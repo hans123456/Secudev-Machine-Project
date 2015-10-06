@@ -44,6 +44,7 @@ public class Backup extends HttpServlet {
 				response.setHeader("Content-Disposition", "filename=\"" + file.getName() + "\"");
 				FileUtils.copyFile(file, out);
 			} else {
+				response.setContentType("text/html");
 				PrintWriter pw = response.getWriter();
 				pw.println("File Does Not Exist.");
 			}
