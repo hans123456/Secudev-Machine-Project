@@ -1,4 +1,4 @@
-package servlets;
+package servlets.user;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -12,7 +12,7 @@ import org.apache.shiro.SecurityUtils;
 /**
  * Servlet implementation class logout
  */
-@WebServlet("/logout")
+@WebServlet("/user/logout")
 public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -1,9 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<link rel="stylesheet" href="res/css/post.css" />
-<script src="res/js/lib/angular.min.js"></script>
-<script src="res/js/post.js"></script>
-<div ng-app="post" id="createpost">
+<link rel="stylesheet" href="/res/css/post.css" />
+<script src="/res/js/post.js"></script>
+<div id="createpost">
 	<div style="margin: 10px;">
 		<form name="myform" id="myform"
 			ng-submit="myform.$valid && createpost()"

@@ -1,4 +1,4 @@
-package servlets;
+package servlets.user;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ import models.exceptions.SecurityBreachException;
 /**
  * Servlet implementation class EditInfo
  */
-@WebServlet("/editinfo")
+@WebServlet("/user/editinfo")
 public class EditInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,15 +27,6 @@ public class EditInfo extends HttpServlet {
 	 */
 	public EditInfo() {
 		super();
-	}
-
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		Subject currentUser = SecurityUtils.getSubject();
-		if (currentUser.isAuthenticated()) System.out.println("logged in");
-		else System.out.println("not logged in");
-
 	}
 
 	/**

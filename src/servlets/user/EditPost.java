@@ -1,6 +1,7 @@
-package servlets;
+package servlets.user;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,12 +13,13 @@ import org.apache.shiro.subject.Subject;
 
 import models.Post;
 import models.PostDAO;
+import models.exceptions.NotAnImageException;
 import models.exceptions.SecurityBreachException;
 
 /**
  * Servlet implementation class EditPost
  */
-@WebServlet("/editpost")
+@WebServlet("/user/editpost")
 public class EditPost extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -63,6 +65,8 @@ public class EditPost extends HttpServlet {
 				response.getWriter().print("fail");
 			}
 
+		} catch (NotAnImageException e) {
+			response.getWriter().print("image");
 		} catch (SecurityBreachException e) {
 			response.sendRedirect("error.jsp");
 		} catch (Exception e) {

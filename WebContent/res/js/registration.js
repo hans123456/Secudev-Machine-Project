@@ -1,4 +1,5 @@
 var app = angular.module('register', []);
+
 app.controller('myformController', [ '$scope', function($scope) {
   var resultElem = $('#result');
   var result = function(res) {
@@ -14,8 +15,10 @@ app.controller('myformController', [ '$scope', function($scope) {
   }
   $scope.register = function() {
     resultElem.html('');
-    $.post("register", $('#myform').serialize()).done(result);
+    $.post("/register", $('#myform').serialize()).done(result);
   };
+  $scope.genders = genders;
+  $scope.salutations = salutations;
 } ]);
 
 app.directive("legalAge", legalAge);

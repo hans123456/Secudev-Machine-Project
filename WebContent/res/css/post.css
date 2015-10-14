@@ -6,6 +6,14 @@
 	border: 1px solid black;
 }
 
+#searchpost {
+	text-align: left;
+	width: 96%;
+	margin: 0 auto;
+	margin-top: 20px;
+	border: 1px solid black;
+}
+
 fieldset {
 	width: 96%;
 	margin: 0 auto;

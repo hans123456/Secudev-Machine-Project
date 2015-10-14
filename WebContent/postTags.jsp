@@ -27,13 +27,13 @@ form table tr td:nth-child(1) {
 	font-weight: bold;
 }
 </style>
-<link rel="stylesheet" href="res/css/lib/colorbox.css" />
-<link rel="stylesheet" href="res/css/board.css" />
+<link rel="stylesheet" href="/res/css/lib/colorbox.css" />
+<link rel="stylesheet" href="/res/css/board.css" />
 </head>
 <body>
-	<script src="res/js/lib/jquery-2.1.4.min.js"></script>
-	<script src="res/js/lib/jquery.colorbox-min.js"></script>
-	<c:import url="WEB-INF/menu.jsp"></c:import>
+	<script src="/res/js/lib/jquery-2.1.4.min.js"></script>
+	<script src="/res/js/lib/jquery.colorbox-min.js"></script>
+	<c:import url="/WEB-INF/menu.jsp"></c:import>
 	<br />
 	<fieldset>
 		<legend>Legend</legend>

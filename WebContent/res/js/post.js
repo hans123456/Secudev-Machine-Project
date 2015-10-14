@@ -4,9 +4,15 @@ var getParameterByName = function(name) {
       .exec(location.search);
   return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g,
       " "));
-}
+};
 
-var app = angular.module('post', []);
+var app;
+try {
+  app = angular.module('post');
+} catch (e) {
+  app = angular.module('post', []);
+}
+var boardLink = "/user/board.jsp";
 
 app.controller('myformController', [ '$scope', function($scope) {
 
@@ -37,7 +43,7 @@ app.controller('myformController', [ '$scope', function($scope) {
       setTimeout(function() {
         console.debug(getParameterByName('page'));
         if (parseInt(getParameterByName('page')) >= 1) {
-          window.location.href = "/board.jsp";
+          window.location.href = boardLink;
         } else location.reload();
       }, 1000);
     } else {
@@ -53,15 +59,17 @@ app.controller('myformController', [ '$scope', function($scope) {
       resultElem.html("Successfully Edited.");
       document.getElementById("myform").reset();
       setTimeout(function() {
-        window.location.href = "/board.jsp";
+        window.location.href = boardLink;
       }, 1000);
     } else {
       resultElem.css("color", "red");
       if (res == "deleted") {
         resultElem.html("Post was deleted body someone.");
         setTimeout(function() {
-          window.location.href = "/board.jsp";
+          window.location.href = boardLink;
         }, 1000);
+      } else if (res == "image") {
+        resultElem.html("Fix Image Link.");
       } else {
         resultElem.html("You did Something Bad.");
       }
@@ -73,11 +81,11 @@ app.controller('myformController', [ '$scope', function($scope) {
   }
 
   $scope.createpost = function() {
-    $.post('/createpost', $('#myform').serialize()).done(createResult);
+    $.post('/user/createpost', $('#myform').serialize()).done(createResult);
   }
 
   $scope.editpost = function() {
-    $.post('/editpost', $('#myform').serialize()).done(editResult);
+    $.post('/user/editpost', $('#myform').serialize()).done(editResult);
   }
 
 } ]);
