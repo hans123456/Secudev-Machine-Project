@@ -1,0 +1,37 @@
+.admin {
+	border-collapse: collapse;
+}
+
+.admin td {
+	padding: 5px;
+}
+
+.item {
+	width: 120px;
+	margin: 0 auto;
+	margin-top: 20px;
+	display: inline-block;
+	border: 1px solid black;
+	text-align: center;
+	vertical-align: top;
+}
+
+.iitem {
+	padding: 10px;
+}
+
+img {
+	width: auto
+}
+
+.item-image {
+	min-height: 100px;
+	min-width: 100px;
+	max-height: 100px;
+	max-width: 100px;
+	max-height: 100px;
+}
+
+.quantity {
+	width: 50px;
+}

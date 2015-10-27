@@ -38,6 +38,7 @@ public class UserDAO extends DAO {
 		} finally {
 			try {
 				if (ps != null) ps.close();
+				if (rs != null) rs.close();
 				if (con != null) con.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -62,6 +63,7 @@ public class UserDAO extends DAO {
 		} finally {
 			try {
 				if (ps != null) ps.close();
+				if (rs != null) rs.close();
 				if (con != null) con.close();
 			} catch (SQLException e) {
 				e.printStackTrace();

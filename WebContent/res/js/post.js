@@ -7,11 +7,13 @@ var getParameterByName = function(name) {
 };
 
 var app;
+
 try {
   app = angular.module('post');
 } catch (e) {
   app = angular.module('post', []);
 }
+
 var boardLink = "/user/board.jsp";
 
 app.controller('myformController', [ '$scope', function($scope) {

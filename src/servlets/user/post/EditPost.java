@@ -1,4 +1,4 @@
-package servlets.user;
+package servlets.user.post;
 
 import java.io.IOException;
 

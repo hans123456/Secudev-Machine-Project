@@ -22,7 +22,7 @@ create table if not exists salutations (
 	foreign key (gender_id) references genders (id)
 );
 
-INSERT INTO `secudevcase1`.`salutations` (`id`, `gender_id`, `salutation`) VALUES (NULL, 1, 'Mr'), (NULL, 1, 'Sir'), (NULL, 1, 'Senior'), (NULL, 1, 'Count'), (NULL, 2, 'Miss'), (NULL, 2, 'Ms'), (NULL, 2, 'Mrs'), (NULL, 2, 'Madame'), (NULL, 2, 'Majesty'), (NULL, 2, 'Seniora');
+INSERT INTO `salutations` (`id`, `gender_id`, `salutation`) VALUES (NULL, 1, 'Mr'), (NULL, 1, 'Sir'), (NULL, 1, 'Senior'), (NULL, 1, 'Count'), (NULL, 2, 'Miss'), (NULL, 2, 'Ms'), (NULL, 2, 'Mrs'), (NULL, 2, 'Madame'), (NULL, 2, 'Majesty'), (NULL, 2, 'Seniora');
 
 create table if not exists users (
 	id int unsigned not null auto_increment,

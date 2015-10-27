@@ -54,8 +54,4 @@ public class Post {
 		this.info.put("username", username);
 	}
 
-	public static void main(String[] args) {
-		System.out.println("[img](.|\\n)*[/img]");
-	}
-	
 }

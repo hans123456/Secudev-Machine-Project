@@ -32,6 +32,8 @@ public class PostDAO extends DAO {
 	private String checkIfDeletedQuery = "SELECT EXISTS(SELECT 1 FROM `posts` WHERE `id` = ? and `deleted` = true)"
 			+ " as `result`";
 
+	private String getTotalPostQuery = "SELECT count(1) FROM `posts` WHERE `user_id` = (SELECT `id` FROM `users` WHERE `username` = ? LIMIT 1) AND `deleted` = false";
+
 	private int noOfRecords;
 
 	public boolean create(Post post) {
@@ -50,6 +52,7 @@ public class PostDAO extends DAO {
 		} finally {
 			try {
 				if (ps != null) ps.close();
+				if (rs != null) rs.close();
 				if (con != null) con.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -74,6 +77,7 @@ public class PostDAO extends DAO {
 		} finally {
 			try {
 				if (ps != null) ps.close();
+				if (rs != null) rs.close();
 				if (con != null) con.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -97,6 +101,7 @@ public class PostDAO extends DAO {
 		} finally {
 			try {
 				if (ps != null) ps.close();
+				if (rs != null) rs.close();
 				if (con != null) con.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -124,6 +129,7 @@ public class PostDAO extends DAO {
 		} finally {
 			try {
 				if (ps != null) ps.close();
+				if (rs != null) rs.close();
 				if (con != null) con.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -148,6 +154,7 @@ public class PostDAO extends DAO {
 		} finally {
 			try {
 				if (ps != null) ps.close();
+				if (rs != null) rs.close();
 				if (con != null) con.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -171,6 +178,7 @@ public class PostDAO extends DAO {
 		} finally {
 			try {
 				if (ps != null) ps.close();
+				if (rs != null) rs.close();
 				if (con != null) con.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -255,12 +263,37 @@ public class PostDAO extends DAO {
 		} finally {
 			try {
 				if (ps != null) ps.close();
+				if (rs != null) rs.close();
 				if (con != null) con.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 		return posts;
+	}
+
+	public String getTotalPost(String username) {
+		String total = "0";
+		try {
+			con = getConnection();
+			ps = con.prepareStatement(getTotalPostQuery);
+			ps.setString(1, username);
+			rs = ps.executeQuery();
+			if (rs.next()) total = rs.getString(1);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null) ps.close();
+				if (rs != null) rs.close();
+				if (con != null) con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return total;
 	}
 
 }

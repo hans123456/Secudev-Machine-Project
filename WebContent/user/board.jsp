@@ -62,9 +62,10 @@ li {
 	<script src="/res/js/lib/jquery.colorbox-min.js"></script>
 	<script src="/res/js/board.js"></script>
 	<script src="/res/js/checkSession.js"></script>
-	<center>
+	<br />
+	<div style="margin-top: 50px; text-align: center;">
 		<H1>The Board</H1>
-	</center>
+	</div>
 	<%
 		int currentPage = 1;
 		int recordsPerPage = 10;
@@ -123,6 +124,18 @@ li {
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("noOfPages", noOfPages);
 	%>
+	<div class="post" style="border: 0;">
+		<form action="" method="post">
+			<a href="#" style="text-decoration: none;"> <img
+				style="vertical-align: middle;"
+				src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" />
+			</a> <select name="pack" id="" style="vertical-align: middle;">
+				<option value="5">$5</option>
+				<option value="10">$10</option>
+				<option value="20">$20</option>
+			</select>
+		</form>
+	</div>
 	<c:if test="${success==false}">
 		<div style="color: red">Invalid Search Query.</div>
 	</c:if>
@@ -178,8 +191,8 @@ li {
 						<c:if
 							test="${post.getInfo(\"username\").equals(username) || isAdmin}">
 							<div class="postuseroptions">
-								<a class="editlink" href="/user/editpost.jsp?id=${id}">Edit</a> <a
-									class="deletelink" href="#"
+								<a class="editlink" href="/user/editpost.jsp?id=${id}">Edit</a>
+								<a class="deletelink" href="#"
 									onclick="deletePost(${id}); return false;">Delete</a>
 							</div>
 						</c:if>

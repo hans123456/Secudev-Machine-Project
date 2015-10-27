@@ -1,3 +1,5 @@
+<%@page import="models.PostDAO"%>
+<%@page import="models.CartDAO"%>
 <%@page import="models.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -8,8 +10,19 @@
 <%
 	try {
 		UserDAO dao = new UserDAO();
-		User user = dao.getInfo(request.getParameter("id"));
+		CartDAO cartDAO = new CartDAO();
+		PostDAO postDAO = new PostDAO();
+		String username = request.getParameter("id");
+		User user = dao.getInfo(username);
+		String totalDonation = cartDAO.getTotalDonation(username);
+		String totalPurchase = cartDAO.getTotalPurchase(username);
+		String totalPost = postDAO.getTotalPost(username);
 		request.setAttribute("user", user);
+		request.setAttribute("isUser",
+				user.getInfo("username").equals(SecurityUtils.getSubject().getPrincipal()));
+		request.setAttribute("totalDonation", totalDonation);
+		request.setAttribute("totalPurchase", totalPurchase);
+		request.setAttribute("totalPost", totalPost);
 	} catch (Exception e) {
 	}
 %>
@@ -102,8 +115,45 @@
 							<c:out value='${user.getInfo("about_me")}' />
 						</div></td>
 				</tr>
+				<tr>
+					<td>Badges :</td>
+					<td><div class="display-input">
+							<c:if test="${totalPost>=3}">Participant Badge<br />
+							</c:if>
+							<c:if test="${totalPost>=5}">Chatter Badge<br />
+							</c:if>
+							<c:if test="${totalPost>=10}">Socialite Badge<br />
+							</c:if>
+							<c:if test="${totalDonation>=5}">Supporter Badge<br />
+							</c:if>
+							<c:if test="${totalDonation>=20}">Contributor Badge<br />
+							</c:if>
+							<c:if test="${totalDonation>=100}">Pillar Badge<br />
+							</c:if>
+							<c:if test="${totalPurchase>=5}">Shopper Badge<br />
+							</c:if>
+							<c:if test="${totalPurchase>=20}">Promoter Badge<br />
+							</c:if>
+							<c:if test="${totalPurchase>=100}">Evangelist Badge<br />
+							</c:if>
+							<c:if
+								test="${totalPost>=3 && totalDonation>=5 && totalPurchase>=5}">Explorer Badge<br />
+							</c:if>
+							<c:if
+								test="${totalPost>=5 && totalDonation>=20 && totalPurchase>=20}">Explorer Badge<br />
+							</c:if>
+							<c:if
+								test="${totalPost>=10 && totalDonation>=100 && totalPurchase>=100}">Explorer Badge<br />
+							</c:if>
+						</div></td>
+				</tr>
 			</table>
 		</fieldset>
+	</c:if>
+	<c:if test="${isUser}">
+		<div>
+			<br /> <a href="/user/editinfo.jsp">Edit Profile</a>
+		</div>
 	</c:if>
 </body>
 </html>
