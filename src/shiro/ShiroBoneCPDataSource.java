@@ -2,7 +2,7 @@ package shiro;
 
 import com.jolbox.bonecp.BoneCPDataSource;
 
-import models.ConnectionFactory;
+import utilities.ConnectionFactory;
 
 public class ShiroBoneCPDataSource extends BoneCPDataSource {
 

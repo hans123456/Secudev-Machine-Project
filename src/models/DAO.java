@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import utilities.ConnectionFactory;
+
 public class DAO {
 
 	protected Connection con;
