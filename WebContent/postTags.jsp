@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html ng-app>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
@@ -29,8 +29,11 @@ form table tr td:nth-child(1) {
 </style>
 <link rel="stylesheet" href="/res/css/lib/colorbox.css" />
 <link rel="stylesheet" href="/res/css/board.css" />
+<link rel="stylesheet" href="/res/css/store.css" />
+<link rel="stylesheet" href="/res/css/lib/colorbox.css" />
 </head>
 <body>
+	<script src="/res/js/lib/angular.min.js"></script>
 	<script src="/res/js/lib/jquery-2.1.4.min.js"></script>
 	<script src="/res/js/lib/jquery.colorbox-min.js"></script>
 	<c:import url="/WEB-INF/menu.jsp"></c:import>
@@ -104,6 +107,26 @@ t	t</pre></td>
 							<div class="qpost">value</div>
 						</div>
 					</blockquote></td>
+			</tr>
+			<tr>
+				<td>Embed Item</td>
+				<td>[item]id[/item]</td>
+				<td><div class="item" style="margin-top: 0;">
+						<div class="iitem">
+							<form action="#">
+								<div>Donation Pack $5</div>
+								<div>5</div>
+								<div>
+									<input class="quantity">
+								</div>
+								<div>5</div>
+								<input type="submit">
+
+								<div>Is Donation</div>
+
+							</form>
+						</div>
+					</div></td>
 			</tr>
 		</table>
 	</fieldset>

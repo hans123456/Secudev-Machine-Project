@@ -16,13 +16,18 @@ try {
 
 var boardLink = "/user/board.jsp";
 
-app.controller('myformController', [ '$scope', function($scope) {
+app.controller('myformController', [ '$scope', '$compile', function($scope, $compile) {
 
   var resultElem = $('#result');
 
   var previewResult = function(res) {
     if (res.startsWith("post")) {
-      $('#PreviewText').html(res.substring(5));
+      res = res.substring(5);
+      res = "<div>" + res + "</div>";
+      console.debug(res);
+      res = $compile(res)($scope);
+      $('#PreviewText').html(res);
+      $scope.$apply();
       $('#PreviewPost').show();
       resultElem.html("");
     } else if (res.startsWith("image")) {
@@ -79,6 +84,7 @@ app.controller('myformController', [ '$scope', function($scope) {
   };
 
   $scope.preview = function() {
+    $('#PreviewPost').hide();
     $.post('/previewpost', $('#myform').serialize()).done(previewResult);
   }
 

@@ -3,9 +3,10 @@ package models;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import com.mysql.jdbc.PreparedStatement;
+
+import utilities.UUIDGenerator;
 
 public class CartDAO extends DAO {
 
@@ -36,7 +37,7 @@ public class CartDAO extends DAO {
 
 	public String generateUUID(String username) {
 		String storeCartId = getLatestCartId(username);
-		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+		String uuid = UUIDGenerator.generateUUID();
 		try {
 			con = getConnection();
 			ps = con.prepareStatement(generateUUIDQuery);

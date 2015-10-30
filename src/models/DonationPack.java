@@ -4,7 +4,7 @@ import models.exceptions.SecurityBreachException;
 
 public class DonationPack {
 
-	private int amount;
+	private int amount = 0;
 	private int[] possiblePacks = { 5, 10, 20 };
 
 	public DonationPack(String amount) throws SecurityBreachException {

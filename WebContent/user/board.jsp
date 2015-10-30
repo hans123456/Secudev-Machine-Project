@@ -62,6 +62,7 @@ li {
 	<script src="/res/js/lib/jquery.colorbox-min.js"></script>
 	<script src="/res/js/board.js"></script>
 	<script src="/res/js/checkSession.js"></script>
+	<script src="/res/js/setter.js"></script>
 	<br />
 	<div style="margin-top: 50px; text-align: center;">
 		<H1>The Board</H1>

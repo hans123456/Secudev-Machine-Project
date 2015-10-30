@@ -6,6 +6,8 @@ $(document).ready(function() {
   });
 });
 
+var app = angular.module('post', []);
+
 var result = function(res) {
   if (res == "deleted") {
     alert("Post was deleted body someone.");

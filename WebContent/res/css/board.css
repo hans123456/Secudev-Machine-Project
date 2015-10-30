@@ -127,3 +127,8 @@ img {
 	max-width: 300px;
 	height: auto;
 }
+
+iframe {
+	width: 120px;
+	height: 80px;
+}

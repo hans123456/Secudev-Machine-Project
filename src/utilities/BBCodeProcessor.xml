@@ -126,6 +126,9 @@
 
         <!-- Table -->
         <coderef name="table"/>
+        
+        <!-- Embed -->
+        <coderef name="embedItem"/>
     </scope>
 
     <code name="noparse">
@@ -273,4 +276,10 @@
         </code>
         <coderef name="comment"/>
     </scope>
+    
+    <code name="embedItem">
+        <pattern ignoreCase="true">[item]<var regex="[0-9]+"/>[/item]</pattern>
+        <template>&lt;div ng-include style=&quot;display: inline-block;&quot; src="'/user/embeditem.jsp?id=<var/>'"&gt;&lt;/div&gt;</template>
+    </code>
+    
 </configuration>

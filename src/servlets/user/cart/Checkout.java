@@ -25,6 +25,7 @@ import com.paypal.base.rest.PayPalRESTException;
 import models.CartDAO;
 import models.CartItem;
 import utilities.PayPalAccess;
+import utilities.Site;
 
 /**
  * Servlet implementation class Checkout
@@ -59,7 +60,7 @@ public class Checkout extends HttpServlet {
 			return;
 		}
 
-		String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/";
+		String url = Site.getSiteURL(request);
 
 		APIContext apiContext = null;
 		String accessToken = null;
