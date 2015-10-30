@@ -43,6 +43,7 @@
 						Item</a>
 				</shiro:hasRole>
 				<form action="/user/cart/editcartitem" method="post">
+					<div>Item #${item.getInfo("id")}</div>
 					<div>${item.getInfo("name")}</div>
 					<input class="ng-hide" set-value='${item.getInfo("price")}'
 						ng-model='price${item.getInfo("id")}' />
