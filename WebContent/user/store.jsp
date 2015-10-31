@@ -44,7 +44,14 @@
 				</shiro:hasRole>
 				<form action="/user/cart/editcartitem" method="post">
 					<div>Item #${item.getInfo("id")}</div>
+					<div>
+						<c:if test='${item.getInfo("image").equals("")}'>No Image</c:if>
+						<c:if test='${!item.getInfo("image").equals("")}'>
+							<a href='${item.getInfo("image")}' target="_blank">Image</a>
+						</c:if>
+					</div>
 					<div>${item.getInfo("name")}</div>
+					<div>${item.getInfo("description")}</div>
 					<input class="ng-hide" set-value='${item.getInfo("price")}'
 						ng-model='price${item.getInfo("id")}' />
 					<div>${item.getInfo("price")}</div>

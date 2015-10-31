@@ -20,8 +20,8 @@ public class StoreDAO extends DAO {
 	private String getItemListQuery = "SELECT `id`, `name`, `description`, `image`, `price`, `donation` FROM `store_items` WHERE `deleted` = false ORDER BY `donation` DESC, `price` ASC";
 	private String[] getItemListResult = { "id", "name", "description", "image", "price", "donation" };
 
-	private String getItem = "SELECT `id`, `name`, `description`, `image`, `price` FROM `store_items` WHERE `id` = ? LIMIT 1";
-	private String[] getItemResult = { "id", "name", "description", "image", "price" };
+	private String getItem = "SELECT `id`, `name`, `description`, `image`, `price`, `donation` FROM `store_items` WHERE `id` = ? LIMIT 1";
+	private String[] getItemResult = { "id", "name", "description", "image", "price", "donation" };
 
 	public void addItem(StoreItem item) {
 		try {
