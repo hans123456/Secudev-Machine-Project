@@ -53,7 +53,7 @@ public class AddItem extends HttpServlet {
 			response.getWriter().println("Item Added Successfuly.");
 		} catch (NotAnImageException e) {
 			e.printStackTrace();
-			response.getWriter().println("Link Not An Image.");
+			response.getWriter().println("Fix Image Link. Max 100 Characters.");
 		} catch (SecurityBreachException e) {
 			e.printStackTrace();
 			response.sendRedirect("/error.jsp");

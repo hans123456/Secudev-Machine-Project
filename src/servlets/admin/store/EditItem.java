@@ -59,7 +59,7 @@ public class EditItem extends HttpServlet {
 			}
 		} catch (NotAnImageException e) {
 			success = false;
-			out = "Link Not An Image.";
+			out = "Fix Image Link. Max 100 Characters.";
 		} catch (SecurityBreachException e) {
 			response.sendRedirect("/error.jsp");
 		} catch (Exception e) {
