@@ -61,8 +61,6 @@ public class Pay_Paypal extends HttpServlet {
 
 		} else if ("true".equals(success)) {
 
-			dao.setCartStatus(username, "Paid");
-
 			APIContext apiContext = new APIContext(accessToken);
 			apiContext.setConfigurationMap(PayPalAccess.getSdkConfig());
 			Payment payment = new Payment();
@@ -72,6 +70,7 @@ public class Pay_Paypal extends HttpServlet {
 			try {
 				Payment p = payment.execute(apiContext, paymentExecute);
 				String details = p.toJSON();
+				dao.setCartStatus(username, "Paid");
 				dao.setPaymentDetails(username, uuid, details);
 				status = "Successful";
 			} catch (PayPalRESTException e) {
