@@ -1,3 +1,4 @@
+<%@page import="models.DonationDAO"%>
 <%@page import="models.PostDAO"%>
 <%@page import="models.CartDAO"%>
 <%@page import="models.User"%>
@@ -12,9 +13,10 @@
 		UserDAO dao = new UserDAO();
 		CartDAO cartDAO = new CartDAO();
 		PostDAO postDAO = new PostDAO();
+		DonationDAO donationDAO = new DonationDAO();
 		String username = request.getParameter("id");
 		User user = dao.getInfo(username);
-		String totalDonation = cartDAO.getTotalDonation(username);
+		String totalDonation = donationDAO.getTotalDonation(username);
 		String totalPurchase = cartDAO.getTotalPurchase(username);
 		String totalPost = postDAO.getTotalPost(username);
 		request.setAttribute("user", user);

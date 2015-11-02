@@ -45,6 +45,13 @@
 		<div class="item">
 			<div class="iitem">
 				<form action="/user/cart/editcartitem" method="post">
+					<div>Item #${item.getInfo("itemId")}</div>
+					<div>
+						<c:if test='${item.getInfo("image").equals("")}'>No Image</c:if>
+						<c:if test='${!item.getInfo("image").equals("")}'>
+							<a href='${item.getInfo("image")}' target="_blank">Image</a>
+						</c:if>
+					</div>
 					<div>${item.getInfo("name")}</div>
 					<input class="ng-hide" set-value='${item.getInfo("price")}'
 						ng-model='price${item.getInfo("itemId")}' />
@@ -58,6 +65,9 @@
 					</div>
 					<div>{{price${item.getInfo("itemId")}*quantity${item.getInfo("itemId")}}}</div>
 					<input type="submit">
+					<c:if test='${item.getInfo("donation").equals("true")}'>
+						<div>Is Donation</div>
+					</c:if>
 				</form>
 			</div>
 		</div>

@@ -40,6 +40,17 @@ create table if not exists store_cart_items (
 	foreign key (store_item_id) references store_items (id)
 );
 
+create table if not exists donations (
+	id int unsigned not null auto_increment,
+	user_id int unsigned not null,
+	uuid varchar(32) default null,
+	amount int unsigned not null,
+	donation_details varchar(5000),
+	datetime_created datetime,
+	primary key (id),
+	foreign key (user_id) references users (id)
+);
+
 /* total donation */
 SELECT SUM(`store_items`.`price`*`store_cart_consolidated`.`quantity`) as `total_donation` FROM `store_items`, (SELECT `store_item_id`, SUM(`quantity`) AS `quantity` FROM `store_cart_items` WHERE `store_cart_id` IN (SELECT `id` FROM `store_cart` WHERE `user_id` = (SELECT `id` FROM `users` WHERE `username` = ? LIMIT 1) AND `store_cart_status_id` = 1) AND `store_item_id` IN (SELECT `id` FROM `store_items` WHERE `donation` = true) GROUP BY `store_item_id`) as `store_cart_consolidated` WHERE `store_items`.`id` = `store_cart_consolidated`.`store_item_id`
 

@@ -1,4 +1,4 @@
-package servlets;
+package servlets.user;
 
 import java.io.IOException;
 
@@ -13,20 +13,20 @@ import com.paypal.api.payments.PaymentExecution;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
-import models.CartDAO;
+import models.DonationDAO;
 import utilities.PayPalAccess;
 
 /**
- * Servlet implementation class Pay_Paypal
+ * Servlet implementation class Donate_Paypal
  */
-@WebServlet("/pay_paypal")
-public class Pay_Paypal extends HttpServlet {
+@WebServlet("/user/donate_paypal")
+public class Donate_Paypal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Pay_Paypal() {
+	public Donate_Paypal() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -47,21 +47,18 @@ public class Pay_Paypal extends HttpServlet {
 		String payerId = request.getParameter("PayerID");
 		String status = "";
 
-		CartDAO dao = new CartDAO();
+		DonationDAO dao = new DonationDAO();
 		String accessToken = PayPalAccess.getAccessToken();
 
 		if (false == dao.checkUUID(username, uuid)) {
 
-			status = "Unsuccessful, You Modified Your Cart.";
+			status = "Unsuccessful, Session Expired.";
 
 		} else if ("true".equals(cancel)) {
 
-			dao.setCartStatus(username, "Cancelled");
 			status = "Cancelled";
 
 		} else if ("true".equals(success)) {
-
-			dao.setCartStatus(username, "Paid");
 
 			APIContext apiContext = new APIContext(accessToken);
 			apiContext.setConfigurationMap(PayPalAccess.getSdkConfig());
@@ -72,7 +69,7 @@ public class Pay_Paypal extends HttpServlet {
 			try {
 				Payment p = payment.execute(apiContext, paymentExecute);
 				String details = p.toJSON();
-				dao.setPaymentDetails(username, uuid, details);
+				dao.setDonationDetails(username, uuid, details);
 				status = "Successful";
 			} catch (PayPalRESTException e) {
 				e.printStackTrace();
@@ -80,9 +77,9 @@ public class Pay_Paypal extends HttpServlet {
 
 		}
 
-		request.setAttribute("status", status);
+		request.setAttribute("donation_status", status);
 
-		request.getRequestDispatcher("/user/mycart.jsp").forward(request, response);
+		request.getRequestDispatcher("/user/board.jsp").forward(request, response);
 
 	}
 

@@ -106,8 +106,8 @@ public class Checkout extends HttpServlet {
 
 		String uuid = dao.generateUUID(username);
 		RedirectUrls redirectUrls = new RedirectUrls();
-		redirectUrls.setCancelUrl(String.format("%spay_paypal?cancel=true&username=%s&uuid=%s", url, username, uuid));
-		redirectUrls.setReturnUrl(String.format("%spay_paypal?success=true&username=%s&uuid=%s", url, username, uuid));
+		redirectUrls.setCancelUrl(String.format("%suser/pay_paypal?cancel=true&username=%s&uuid=%s", url, username, uuid));
+		redirectUrls.setReturnUrl(String.format("%suser/pay_paypal?success=true&username=%s&uuid=%s", url, username, uuid));
 		payment.setRedirectUrls(redirectUrls);
 
 		try {

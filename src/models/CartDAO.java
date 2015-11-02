@@ -261,7 +261,8 @@ public class CartDAO extends DAO {
 		}
 	}
 
-	public String getTotalDonation(String username) {
+	/* moved to donation dao */
+	private String getTotalDonation(String username) {
 		String total = "0";
 		try {
 			con = getConnection();

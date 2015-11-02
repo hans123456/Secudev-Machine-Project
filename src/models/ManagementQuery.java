@@ -52,6 +52,10 @@ public class ManagementQuery {
 		return " " + concat + " " + column + " " + constraints;
 	}
 
+	public String toString(boolean start) {
+		return (start == false ? " " + concat + " " : "") + column + " " + constraints;
+	}
+
 	public String getURLParams() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("&a=" + a);

@@ -65,6 +65,9 @@ li {
 	<script src="/res/js/setter.js"></script>
 	<br />
 	<div style="margin-top: 50px; text-align: center;">
+		<c:if test="${donation_status!=null}">
+			<H1>Donation was ${donation_status}</H1>
+		</c:if>
 		<H1>The Board</H1>
 	</div>
 	<%
@@ -126,11 +129,12 @@ li {
 		request.setAttribute("noOfPages", noOfPages);
 	%>
 	<div class="post" style="border: 0;">
-		<form action="" method="post">
+		<form action="/user/donate" id="donate" method="post">
 			<a href="#" style="text-decoration: none;"> <img
 				style="vertical-align: middle;"
-				src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" />
-			</a> <select name="pack" id="" style="vertical-align: middle;">
+				src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif"
+				onclick="document.getElementById('donate').submit();" />
+			</a> <select name="amount" id="" style="vertical-align: middle;">
 				<option value="5">$5</option>
 				<option value="10">$10</option>
 				<option value="20">$20</option>
