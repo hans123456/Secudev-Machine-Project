@@ -25,17 +25,21 @@ public class PayPalAccess {
 		timeUpdated = expiresIn = 0;
 	}
 
-	public static String getAccessToken() {
-		long currentTime = System.currentTimeMillis();
-		if (currentTime - timeUpdated > expiresIn) {
+	public static synchronized String getAccessToken() {
+		// long currentTime = System.currentTimeMillis();
+		// if (currentTime - timeUpdated > expiresIn) {
+		boolean success = false;
+		while (success == false) {
 			try {
 				tokenCredential = new OAuthTokenCredential(ClientID, Secret, sdkConfig);
 				accessToken = tokenCredential.getAccessToken();
-				expiresIn = tokenCredential.expiresIn() * 900;
+				// expiresIn = tokenCredential.expiresIn() * 900;
+				success = true;
 			} catch (PayPalRESTException e) {
 				e.printStackTrace();
 			}
 		}
+		// }
 		return accessToken;
 	}
 

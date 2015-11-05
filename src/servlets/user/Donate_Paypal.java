@@ -56,7 +56,7 @@ public class Donate_Paypal extends HttpServlet {
 
 		} else if ("true".equals(cancel)) {
 
-			status = "Cancelled";
+			status = "Cancelled.";
 
 		} else if ("true".equals(success)) {
 
@@ -70,8 +70,9 @@ public class Donate_Paypal extends HttpServlet {
 				Payment p = payment.execute(apiContext, paymentExecute);
 				String details = p.toJSON();
 				dao.setDonationDetails(username, uuid, details);
-				status = "Successful";
+				status = "Successful.";
 			} catch (PayPalRESTException e) {
+				status = "Unsuccessful, You Tried To Do Something.";
 				e.printStackTrace();
 			}
 

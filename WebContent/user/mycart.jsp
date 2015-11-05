@@ -41,6 +41,15 @@
 	<c:if test="${status!=null}">
 		<h3>Payment was ${status}.</h3>
 	</c:if>
+	<br />
+	<div>
+		Total Price : &dollar;{{
+		<c:forEach var="item" items="${items}" varStatus="status">
+				price${item.getInfo("itemId")}*quantity${item.getInfo("itemId")}<c:if
+				test="${!status.last}">+</c:if>
+		</c:forEach>
+		}}
+	</div>
 	<c:forEach var="item" items="${items}">
 		<div class="item">
 			<div class="iitem">

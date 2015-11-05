@@ -57,7 +57,8 @@ public class Pay_Paypal extends HttpServlet {
 		} else if ("true".equals(cancel)) {
 
 			dao.setCartStatus(username, "Cancelled");
-			status = "Cancelled";
+			status = "Cancelled.";
+			dao.generateUUID(username);
 
 		} else if ("true".equals(success)) {
 
@@ -72,8 +73,9 @@ public class Pay_Paypal extends HttpServlet {
 				String details = p.toJSON();
 				dao.setCartStatus(username, "Paid");
 				dao.setPaymentDetails(username, uuid, details);
-				status = "Successful";
+				status = "Successful.";
 			} catch (PayPalRESTException e) {
+				status = "Unsuccessful, You Tried To Do Something.";
 				e.printStackTrace();
 			}
 
